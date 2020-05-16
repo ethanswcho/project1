@@ -1,6 +1,6 @@
 from libs.Node import Node
 
-class Program(Node):
+class PROGRAMNODE(Node):
 
     def __init__(self):
         pass
