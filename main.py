@@ -1,8 +1,8 @@
 """
 main method of the program
 """
-
-from .tokenize import tokenize
+from ast.PROGRAMNODE import PROGRAMNODE
+from libs.Tokenizer import Tokenizer
 from .parse import parse
 from .validate import validate
 from .generate_game import generate_game
@@ -15,10 +15,11 @@ def main():
     input_text = f.read()
     f.close()
 
+    tokenizer = Tokenizer()
+    tokenized_input = tokenizer(input_text)
 
-    tokenized_input = tokenize(input_text)
-
-    parsed_commands = parse(tokenized_input)
+    program = PROGRAMNODE()
+    parsed_commands = program.parse(tokenized_input)
 
     is_valid, error_notes = validate(parsed_commands)
 
@@ -43,3 +44,4 @@ sample input:
     do every 10 second: block1 shift right by 5
     do every 10 second: gravity increases by 2
     "
+"""
