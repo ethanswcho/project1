@@ -1,9 +1,8 @@
 """
 main method of the program
 """
-
-from tokenize import tokenize
-from parse import parse
+from astNodes.PROGRAM import PROGRAM
+from libs.Tokenizer import Tokenizer
 from validate import validate
 from generate_game import generate_game
 
@@ -15,10 +14,11 @@ def main():
     input_text = f.read()
     f.close()
 
+    tokenizer = Tokenizer()
+    tokenized_input = tokenizer.tokenize()
 
-    tokenized_input = tokenize(input_text)
-
-    parsed_commands = parse(tokenized_input)
+    program = PROGRAM()
+    parsed_commands = program.parse()
 
     is_valid, error_notes = validate(parsed_commands)
 
