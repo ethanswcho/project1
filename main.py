@@ -1,11 +1,10 @@
 """
 main method of the program
 """
-from ast.PROGRAMNODE import PROGRAMNODE
+from astNodes.PROGRAM import PROGRAM
 from libs.Tokenizer import Tokenizer
-from .parse import parse
-from .validate import validate
-from .generate_game import generate_game
+from validate import validate
+from generate_game import generate_game
 
 def main():
 
@@ -16,10 +15,10 @@ def main():
     f.close()
 
     tokenizer = Tokenizer()
-    tokenized_input = tokenizer(input_text)
+    tokenized_input = tokenizer.tokenize()
 
-    program = PROGRAMNODE()
-    parsed_commands = program.parse(tokenized_input)
+    program = PROGRAM()
+    parsed_commands = program.parse()
 
     is_valid, error_notes = validate(parsed_commands)
 
@@ -32,8 +31,10 @@ def main():
 
     generate_game(parsed_commands)
 
+    print("If you get this message the code runs!")
 
-if __name___ == "__main__":
+
+if __name__ == "__main__":
     main()
 
 

@@ -3,7 +3,7 @@ input: parsed_commands
 output: ???
 """
 
-from .game_helpers import make_block
+from game_helpers import make_block
 
 def generate_game(parsed_commands: dict):
 
