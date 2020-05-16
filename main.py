@@ -2,10 +2,10 @@
 main method of the program
 """
 
-from .tokenize import tokenize
-from .parse import parse
-from .validate import validate
-from .generate_game import generate_game
+from tokenize import tokenize
+from parse import parse
+from validate import validate
+from generate_game import generate_game
 
 def main():
 
@@ -32,7 +32,7 @@ def main():
     generate_game(parsed_commands)
 
 
-if __name___ == "__main__":
+if __name__ == "__main__":
     main()
 
 
@@ -43,3 +43,4 @@ sample input:
     do every 10 second: block1 shift right by 5
     do every 10 second: gravity increases by 2
     "
+"""
