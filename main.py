@@ -31,6 +31,8 @@ def main():
 
     generate_game(parsed_commands)
 
+    print("If you get this message the code runs!")
+
 
 if __name__ == "__main__":
     main()
