@@ -6,16 +6,14 @@ from libs.Tokenizer import Tokenizer
 from validate import validate
 from generate_game import generate_game
 
+
 def main():
 
-    #Open the file, copy the content, and close
-    #The file should be inside same folder as the python scripts (or we can specify the file location here as a global variable)
-    f = open("config.txt")
-    input_text = f.read()
-    f.close()
+    literals = ["set arena size:", "make a", "called", "remove", "set", "of", "to", "increase", "decrease", "by",
+                "move", "wait", "do every", ":", "end loop", "millisecond", "second", "block", "end block", "player",
+                "up", "down", "left", "right", "colour", "xpos", "ypos", "width", "height", "#"]
 
-    tokenizer = Tokenizer()
-    tokenized_input = tokenizer.tokenize()
+    Tokenizer.make_tokenizer("config.txt", literals)
 
     program = PROGRAM()
     parsed_commands = program.parse()
@@ -24,7 +22,7 @@ def main():
 
     if is_valid is False:
         for en in error_notes:
-            print(error_notes)
+            print(en)
         """
         Error handling (TBD) 
         """

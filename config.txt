@@ -1,3 +1,28 @@
-make blue block block1 at 20, 40 with 40 width
-do every 10 second: block1 shift right by 5
-do every 10 second: gravity increases by 2
+set arena size: 650, 1000
+make a block called b1
+make a block called b2
+make a end block called b3
+set xpos of b1 to 100
+set ypos of b1 to 100
+set xpos of b2 to 200
+set ypos of b2 to 200
+set xpos of b3 to 300
+set ypos of b3 to 300
+set colour of b3 to #ffffff
+do every 100 millisecond:
+    increase width of b1 by 30
+    wait 50 millisecond
+    decrease width of b1 by 30
+end loop
+do every 100 millisecond:
+    move b2 right by 50
+    wait 50 millisecond
+    move b2 left by 50
+end loop
+do every 4 second:
+    make a block called b4
+    set xpos of b4 to 400
+    set ypos of b4 to 400
+    wait 2 second
+    remove b4
+end loop
