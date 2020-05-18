@@ -1,112 +1,22 @@
-ARENA:
-  SETSIZE ::= "set arena size " X ", " Y
-  X ::= (0-1000)
-  Y ::= (0-1000)
-
-
-GOAL:
-  SETGOAL ::= "set goal as " GOAL " [" "(TIME)|(COINS)]
-  GOAL ::= "endpoint"|"time"|"coins"
-  TIME ::= (0-1000)"s"
-  COIN ::= (0-100)
-
-
-ITEMS (BLOCK + COIN):
-  MAKEITEM ::= "make " makeables " " ITEMNAME
-  MAKEABLES = "block" | "coin"
-
-  SETCOLOR ::= "set " ITEMNAME " color " COLOR
-  COLOR ::= (All supported colors in pygame)
-
-  #May not need if we make coin all same value
-  SETCOINVALUE ::= "set " COINNAME " value " VALUE
-  VALUE ::= (0-1000)
-
-  PUTITEM = "put " ITEMNAME " " X ", " "Y"
-  X ::= (0-1000)
-  Y ::= (0-1000)
-
-  SETDIMENSION ::= "set " BLOCKNAME " size " WIDTH ", " HEIGHT
-  WIDTH ::= (0-100)
-  HEIGHT ::= (0-100)
-
-  BLOCKMOVE ::= "every " TIME " " BLOCKNAME " " ACTION " "  DIRECTION " " DISTANCE|FACTOR
-  TIME ::= (0-100) "s"
-  ACTION ::= "move"|"shrink"|"expand"
-  DIRECTION ::= ("north"|"south"|"east"|"west")|("veritcally"|"horizontally")
-  DISTANCE ::= (0-100)
-  FACTOR ::= (0-10)
-
-  BLOCKSHRINK ::= "every " TIME " " BLOCKNAM " shirnk "|" expand " DIRECTION " " FACTOR
-  TIME ::= (0-100) "s"
-  DIRECTION ::= "vertically"|"horizontally"
-  FACTOR ::= (0-10)
-
-  SETBLOCKTYPE ::= "set " BLOCKNAME " LETHAL" [" after " TIME]
-  DANGERTYPE ::= "fall" | "lethal"
-
-
-PHYSICS:
-  SETGRAVITY ::= "set gravity " VALUE
-  VALUE::= "default"|(0-1000)
-
-  SETCHARX ::= "set character speed " VALUE
-  VALUE ::= "default"|(0-1000)
-
-  SETCHARJUMP ::= "set character jump " VALUE
-  VALUE ::= "default"|(0-1000)
-
-PROGRAM ::= CONFIGUREARENA? (STATEMENT | LOOP)+
-CONFIGUREARENA ::= "set arena size:" DIGIT "," DIGIT
-STATEMENT ::= MAKESTATEMENT | REMOVESTATEMENT | SETSTATEMENT | ACTIONSTATEMENT | WAITSTATEMENT
-MAKESTATEMENT ::= "make a" BLOCKTYPE "called" BLOCKNAME
-REMOVESTATEMENT ::= "remove" BLOCKNAME
-SETSTATEMENT ::= "set" FIELD "of" OBJECT "to" VALUE | ("increase" | "decrease") FIELD "of" OBJECT "by" DIGIT
+        PROGRAM ::= CONFIGUREARENA? (STATEMENT | LOOP)+
+ CONFIGUREARENA ::= "arena size" DIGITTUPLE
+     DIGITTUPLE ::= DIGIT "," DIGIT // e.g. width, height / xpos, ypos
+      STATEMENT ::= MAKESTATEMENT | REMOVESTATEMENT | SETSTATEMENT | ACTIONSTATEMENT | WAITSTATEMENT
+  MAKESTATEMENT ::= "make a" BLOCKTYPE "called" BLOCKNAME ("with size" SIZE)? "at" DIGITTUPLE
+REMOVESTATEMENT ::= "destroy" BLOCKNAME
+   SETSTATEMENT ::= "set" FIELD "of" OBJECT "to" VALUE | "change" FIELD "of" OBJECT "by" DIGIT
 ACTIONSTATEMENT ::= "move" BLOCKNAME DIR "by" DIGIT
-WAITSTATEMENT ::= "wait" DIGIT TIME
-LOOP ::= "do every" DIGIT TIME ":" STATEMENT+ "end loop"
-TIME ::= "millisecond" | "second"
-BLOCKTYPE ::= "block" | "end block"
-OBJECT ::= "player" | BLOCKNAME
-BLOCKNAME ::= STRING
-DIR ::= "up" | "down" | "left" | "right"
-FIELD ::= POSITION | SIZE | "colour"
-POSITION ::= "xpos" | "ypos"
-SIZE ::= "width" | "height"
-VALUE ::= STRING | DIGIT | COLOUR
-COLOUR (Hex colour code) ::= "#" DIGIT
-DIGIT ::= [0-9]+
-STRING ::= [A-Za-z0-9]+
-
-Sample Program:
-set arena size: 650, 1000
-make a block called b1
-make a block called b2
-make a end block called b3
-set xpos of b1 to 100
-set ypos of b1 to 100
-set xpos of b2 to 200
-set ypos of b2 to 200
-set xpos of b3 to 300
-set ypos of b3 to 300
-set colour of b3 to #ffffff
-do every 100 millisecond:
-    // simulate growing/shrinking block, not sure if this will work
-    increase width of b1 by 30
-    wait 50 millisecond
-    decrease width of b1 by 30
-end loop
-do every 100 millisecond:
-    // simulate moving platform, not sure if this will work
-    move b2 right by 50
-    wait 50 millisecond
-    move b2 left by 50
-end loop
-do every 4 second:
-    // simulate disappearing/reappearing block, not sure if this will work
-    make a block called b4
-    set xpos of b4 to 400
-    set ypos of b4 to 400
-    wait 2 second
-    remove b4
-end loop
+  WAITSTATEMENT ::= "wait" DIGIT TIME
+           LOOP ::= "do every" DIGIT TIME ":" STATEMENT+ "end loop"
+           TIME ::= "ms"
+      BLOCKTYPE ::= "block" | "goal"
+         OBJECT ::= "player" | BLOCKNAME
+      BLOCKNAME ::= STRING
+            DIR ::= "up" | "down" | "left" | "right"
+          FIELD ::= POSITION | DIMENSION | "colour"
+       POSITION ::= "xpos" | "ypos"
+      DIMENSION ::= "width" | "height"
+          VALUE ::= DIGIT | COLOUR
+         COLOUR ::= "#" DIGIT // Hex colour code
+          DIGIT ::= (-)?[0-9]+
+         STRING ::= [A-Za-z0-9]+
