@@ -9,9 +9,9 @@ from generate_game import generate_game
 
 def main():
 
-    literals = ["set arena size:", "make a", "called", "remove", "set", "of", "to", "increase", "decrease", "by",
-                "move", "wait", "do every", ":", "end loop", "millisecond", "second", "block", "end block", "player",
-                "up", "down", "left", "right", "colour", "xpos", "ypos", "width", "height", "#"]
+    literals = ["arena size", "make a", "called", "destroy", "set", "of", "to", "change", "by", "move", "wait",
+                "do every", ":", "end loop", "ms", "block", "goal", "player", "up", "down", "left", "right", "colour",
+                "xpos", "ypos", "width", "height", "#"]
 
     Tokenizer.make_tokenizer("config.txt", literals)
 

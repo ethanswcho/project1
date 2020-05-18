@@ -26,6 +26,8 @@ class Tokenizer:
         for s in self.literals:
             tokenized_program = tokenized_program.replace(s, rw + s + rw)
             print(tokenized_program)
+        tokenized_program = tokenized_program.replace(rw + " ", rw)
+        print(tokenized_program)
         tokenized_program = tokenized_program.replace(rw + rw, rw)
         print(tokenized_program)
         if len(tokenized_program) > 0 and tokenized_program[0] == rw:
@@ -36,6 +38,8 @@ class Tokenizer:
         print(self.tokens)
         for i in range(len(self.tokens)):
             self.tokens[i] = self.tokens[i].strip()
+        print(self.tokens)
+        self.tokens = list(filter(None, self.tokens))
         print(self.tokens)
 
     """
