@@ -11,9 +11,9 @@ GOAL:
   COIN ::= (0-100)
 
 
-ITEMS (BLOCK + COIN):
+ITEMS (BLOCK + COIN + FLAG):
   MAKEITEM ::= "make " makeables " " ITEMNAME
-  MAKEABLES = "block" | "coin"
+  MAKEABLES = "block" | "coin" | "flag"
 
   SETCOLOR ::= "set " ITEMNAME " color " COLOR
   COLOR ::= (All supported colors in pygame)
@@ -30,7 +30,9 @@ ITEMS (BLOCK + COIN):
   WIDTH ::= (0-100)
   HEIGHT ::= (0-100)
 
+  # Not sure if this is needed since it's just STRING
   BLOCKNAME ::= STRING
+  ITEMNAME ::= STRING
 
   BLOCKMOVE ::= "every " TIME " " BLOCKNAME " " ACTION " "  DIRECTION " " DISTANCE|FACTOR
   TIME ::= (0-100) "s"
@@ -46,6 +48,9 @@ ITEMS (BLOCK + COIN):
   SETBLOCKTYPE ::= "set " BLOCKNAME " LETHAL" [" after " TIME]
   DANGERTYPE ::= "fall" | "lethal"
 
+  SETFLAGPOINT = "set " FLAGNAME " at" " X ", " Y
+  X ::= (0-1000)
+  Y ::= (0-1000)
 
 PHYSICS:
   SETGRAVITY ::= "set gravity " VALUE
