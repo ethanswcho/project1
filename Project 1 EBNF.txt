@@ -30,6 +30,8 @@ ITEMS (BLOCK + COIN):
   WIDTH ::= (0-100)
   HEIGHT ::= (0-100)
 
+  BLOCKNAME ::= STRING
+
   BLOCKMOVE ::= "every " TIME " " BLOCKNAME " " ACTION " "  DIRECTION " " DISTANCE|FACTOR
   TIME ::= (0-100) "s"
   ACTION ::= "move"|"shrink"|"expand"
@@ -37,10 +39,9 @@ ITEMS (BLOCK + COIN):
   DISTANCE ::= (0-100)
   FACTOR ::= (0-10)
 
-  BLOCKSHRINK ::= "every " TIME " " BLOCKNAM " shirnk "|" expand " DIRECTION " " FACTOR
+  BLOCKSHRINK ::= "every " TIME " " BLOCKNAME " shirnk "|" expand " DIRECTION " " FACTOR
   TIME ::= (0-100) "s"
   DIRECTION ::= "vertically"|"horizontally"
-  FACTOR ::= (0-10)
 
   SETBLOCKTYPE ::= "set " BLOCKNAME " LETHAL" [" after " TIME]
   DANGERTYPE ::= "fall" | "lethal"
