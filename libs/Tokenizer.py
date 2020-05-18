@@ -5,12 +5,12 @@ class Tokenizer:
     the_tokenizer = None
 
     def __init__(self, filename: str, literals_list: list):
-        self.literals = literals_list
+        Tokenizer.literals = literals_list
         self.tokens = None
         self.current_token = 0
         try:
             with open(filename) as f:
-                self.program = f.read()
+                Tokenizer.program = f.read()
         except OSError:
             print("Didn't find file")
             exit()
