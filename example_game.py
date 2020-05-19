@@ -74,11 +74,11 @@ class MyGame(arcade.Window):
 
         # Put some crates on the ground
         # This shows using a coordinate list to place sprites
-        coordinate_list = [[512, 96],
+        block_coordinate_list = [[512, 96],
                            [256, 96],
                            [768, 96]]
 
-        self.add_block(coordinate_list)
+        self.add_block(block_coordinate_list)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
