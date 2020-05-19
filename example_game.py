@@ -51,7 +51,8 @@ class MyGame(arcade.Window):
         self.coin_list = arcade.SpriteList()
 
         # Set up the player, specifically placing it at these coordinates.
-        self.player_sprite = arcade.Sprite("images/player_1/player_stand.png", CHARACTER_SCALING)
+        self.player_sprite = arcade.Sprite(
+            "images/player_1/player_stand.png", CHARACTER_SCALING)
         self.player_sprite.center_x = 64
         self.player_sprite.center_y = 96
         self.player_list.append(self.player_sprite)
@@ -73,6 +74,7 @@ class MyGame(arcade.Window):
         self.add_block(coordinate_list)
 
         # Create the 'physics engine'
+        # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
                                                              self.wall_list,
                                                              GRAVITY)
@@ -114,7 +116,6 @@ class MyGame(arcade.Window):
         # example though.)
         self.physics_engine.update()
 
-
     def add_block(self, block_coordinates):
         """ 
         Parameters
@@ -123,9 +124,11 @@ class MyGame(arcade.Window):
             List of coordinates [(x, y)] that denote the locations to add the blocks
         """
         for coordinate in block_coordinates:
-            block = arcade.Sprite("images/tiles/boxCrate_double.png", TILE_SCALING)
+            block = arcade.Sprite(
+                "images/tiles/boxCrate_double.png", TILE_SCALING)
             block.position = coordinate
             self.wall_list.append(block)
+
 
 def main():
     """ Main method """
