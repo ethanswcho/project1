@@ -6,7 +6,7 @@ import arcade
 # Constants
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 650
-SCREEN_TITLE = "Platformer"
+SCREEN_TITLE = "CPSC 410 - Project 1"
 
 # Constants used to scale our sprites from their original size
 CHARACTER_SCALING = 1
@@ -70,11 +70,7 @@ class MyGame(arcade.Window):
                            [256, 96],
                            [768, 96]]
 
-        for coordinate in coordinate_list:
-            # Add a crate on the ground
-            wall = arcade.Sprite("images/tiles/boxCrate_double.png", TILE_SCALING)
-            wall.position = coordinate
-            self.wall_list.append(wall)
+        self.add_block(coordinate_list)
 
         # Create the 'physics engine'
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
@@ -118,6 +114,18 @@ class MyGame(arcade.Window):
         # example though.)
         self.physics_engine.update()
 
+
+    def add_block(self, block_coordinates):
+        """ 
+        Parameters
+        ----------
+        block_coordinates : list
+            List of coordinates [(x, y)] that denote the locations to add the blocks
+        """
+        for coordinate in block_coordinates:
+            block = arcade.Sprite("images/tiles/boxCrate_double.png", TILE_SCALING)
+            block.position = coordinate
+            self.wall_list.append(block)
 
 def main():
     """ Main method """
