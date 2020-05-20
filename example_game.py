@@ -75,21 +75,10 @@ class MyGame(arcade.Window):
         # This shows using a loop to place multiple sprites horizontally
         self.create_default_ground()
 
-        # Put some crates on the ground
-        # This shows using a coordinate list to place sprites
-
-        # TODO: change to grid system, remove in final code
-        block_coordinate_list = [[2, 1],
-                                 [5, 1],
-                                 [7, 1]]
-
-        # TODO: remove from final code. testing code.
-        self.add_static_blocks(block_coordinate_list)
-        block1 = self.set_horizontal_moving_block(9, 4, 5, 9, -4)
-        block2 = self.set_horizontal_moving_block(8, 3, 8, 10, 4)
-        block3 = self.set_vertical_moving_block(3, 3, 4, 2, 2)
-
-        self.wall_list.append(block1)
+        # Example coordinates to place crates on the ground
+        # block_coordinate_list = [[2, 1],
+        #                          [5, 1],
+        #                          [7, 1]]
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
