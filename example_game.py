@@ -84,10 +84,11 @@ class MyGame(arcade.Window):
         # This shows using a coordinate list to place sprites
         
         # TODO: change to grid system
-        block_coordinate_list = [[512, 96],
-                                 [256, 96],
-                                 [768, 96]]
+        block_coordinate_list = [[2, 1],
+                                 [5, 1],
+                                 [7, 1]]
 
+        # TODO: remove from final code. testing code.
         self.add_static_blocks(block_coordinate_list)
         self.add_horizontal_moving_block(9, 4, 5, 9, -4)
         self.add_horizontal_moving_block(0, 0, 0, 3, 3)
@@ -171,7 +172,7 @@ class MyGame(arcade.Window):
         Parameters
         ----------
         block_coordinates : list
-            List of coordinates [(x, y)] that denote the locations to position the blocks
+            List of coordinates [(x, y)] that denote the tile locations to position the blocks
         """
 
         for coordinate in block_coordinates:
@@ -182,9 +183,11 @@ class MyGame(arcade.Window):
         Parameters
         ----------
         coordinate : (int, int)
-            Coordinate (x, y) that denotes the location to position the block
+            Coordinate (x, y) that denotes the tile location to position the block
         """
 
+        coordinate[0] = coordinate[0] * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+        coordinate[1] = coordinate[1] * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
         block = arcade.Sprite(
             "images/tiles/grassMid.png", TILE_SCALING)
         block.position = coordinate
