@@ -4,5 +4,9 @@ If the print statement below is printed, then the game is successfully "running"
 """
 
 
-def run():
+def main():
     print("Game is now running!")
+
+
+if __name__ == "__main__":
+    main()

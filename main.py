@@ -55,9 +55,9 @@ def main():
 
 #Imports the generated gamefile (needs to be called generated_game.py), and executes the file's run() method.
 def run_game():
-    import generated_game
+    import example_game
     print(colored("Running generated game...", "green"))
-    generated_game.run()
+    example_game.main()
 
 if __name__ == "__main__":
     main()
