@@ -95,9 +95,11 @@ class MyGame(arcade.Window):
 
         # TODO: remove from final code. testing code.
         self.add_static_blocks(block_coordinate_list)
-        self.add_horizontal_moving_block(9, 4, 5, 9, -4)
-        self.add_horizontal_moving_block(8, 3, 8, 10, 4)
-        self.add_vertical_moving_block(3, 3, 4, 2, 2)
+        block1 = self.set_horizontal_moving_block(9, 4, 5, 9, -4)
+        block2 = self.set_horizontal_moving_block(8, 3, 8, 10, 4)
+        block3 = self.set_vertical_moving_block(3, 3, 4, 2, 2)
+
+        self.wall_list.append(block1)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
@@ -229,7 +231,7 @@ class MyGame(arcade.Window):
         block.position = grid_position
         self.wall_list.append(block)
 
-    def add_horizontal_moving_block(self, start_x, start_y, boundary_left, boundary_right, change_x):
+    def set_horizontal_moving_block(self, start_x, start_y, boundary_left, boundary_right, change_x):
         """ 
         Parameters
         ----------
@@ -253,11 +255,9 @@ class MyGame(arcade.Window):
         block.boundary_right = boundary_right * GRID_PIXEL_SIZE
         block.change_x = change_x * TILE_SCALING
 
-        self.wall_list.append(block)
-
         return block
 
-    def add_vertical_moving_block(self, start_x, start_y, boundary_top, boundary_bottom, change_y):
+    def set_vertical_moving_block(self, start_x, start_y, boundary_top, boundary_bottom, change_y):
         """ 
         Parameters
         ----------
@@ -280,8 +280,6 @@ class MyGame(arcade.Window):
         block.boundary_top = boundary_top * GRID_PIXEL_SIZE
         block.boundary_bottom = boundary_bottom * GRID_PIXEL_SIZE
         block.change_y = change_y * TILE_SCALING
-
-        self.wall_list.append(block)
 
         return block
 
