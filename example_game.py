@@ -33,7 +33,6 @@ class MyGame(arcade.Window):
 
         # These are 'lists' that keep track of our sprites. Each sprite should
         # go into a list.
-        self.coin_list = None
         self.wall_list = None
         self.player_list = None
         self.moving_wall_list = None
@@ -60,7 +59,6 @@ class MyGame(arcade.Window):
         # Create the Sprite lists
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
-        self.coin_list = arcade.SpriteList()
 
         self.game_over = False
 
@@ -122,7 +120,6 @@ class MyGame(arcade.Window):
 
         # Draw our sprites
         self.wall_list.draw()
-        self.coin_list.draw()
         self.goal.draw()
         self.player_list.draw()
 
