@@ -1,13 +1,7 @@
 arena size 650, 1000
-make a block called b1
-make a block called b2
-make a goal called b3
-set xpos of b1 to 100
-set ypos of b1 to 100
-set xpos of b2 to 200
-set ypos of b2 to 200
-set xpos of b3 to 300
-set ypos of b3 to 300
+make a block called b1 with size 10, 10 at 100, 100
+make a block called b2 at 200, 200
+make a goal called b3 at 300, 300
 set colour of b3 to #ffffff
 do every 100 ms:
     change width of b1 by 30
@@ -20,9 +14,10 @@ do every 100 ms:
     move b2 left by 50
 end loop
 do every 4000 ms:
-    make a block called b4
-    set xpos of b4 to 400
-    set ypos of b4 to 400
-    wait 2000 ms
+    make a block called b4 at 400, 400
+    wait 1000 ms
+    set xpos of b4 to 500
+    set ypos of b4 to 450
+    wait 1000 ms
     destroy b4
 end loop
