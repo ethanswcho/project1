@@ -21,3 +21,9 @@ class FIELD(Node):
     def evaluate(self):
         # TODO
         pass
+
+    def get_fields(self):
+        return{
+            "field": self.field,
+            "type": self.type
+        }

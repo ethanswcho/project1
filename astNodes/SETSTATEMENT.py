@@ -35,8 +35,12 @@ class SETSTATEMENT(Node):
         pass
 
     def get_fields(self):
-        return{
-            "object": self.object,
-            "field": self.field,
-            "value": self.value
+        output = {
+            "object": self.object
         }
+        fields = self.field.get_fields()
+        for k, v in fields.items():
+            output[k] = v
+        output["value"] = self.value
+        return output
+            

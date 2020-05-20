@@ -31,6 +31,6 @@ class CHANGESTATEMENT(Node):
     def get_fields(self):
         return{
             "object": self.object,
-            "field": self.field,
+            "field": self.field.get_fields(),
             "value": self.value
         }

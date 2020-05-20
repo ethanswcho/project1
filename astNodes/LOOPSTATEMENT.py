@@ -29,3 +29,11 @@ class LOOPSTATEMENT(Node):
     def evaluate(self):
         # TODO
         pass
+
+    def get_fields(self):
+        output = {
+            "ms": self.ms
+        }
+        statements_fields = [s.get_fields() for s in self.statements]
+        output["statements"] = statements_fields
+        return output

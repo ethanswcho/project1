@@ -15,3 +15,8 @@ class WAITSTATEMENT(Node):
     def evaluate(self):
         # TODO
         pass
+    
+    def get_fields(self):
+        return{
+            "ms": self.ms
+        }

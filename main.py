@@ -5,6 +5,7 @@ from astNodes.PROGRAM import PROGRAM
 from libs.Tokenizer import Tokenizer
 from validate import validate
 from generate_game import generate_game
+import pprint as pp
 
 def main():
 
@@ -25,9 +26,16 @@ def main():
     print("If you get this message the code runs!")
 
     game_data = program.get_data()
-    print(game_data)
     
-   
+    pp.pprint(game_data)
+
+"""
+def game_data_printer(game_data: dict):
+    for k, v in game_data.items():
+        print(k)
+        print(v)   
+"""
+
 
 def run_game():
     import game

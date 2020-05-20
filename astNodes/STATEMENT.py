@@ -30,7 +30,7 @@ class STATEMENT(Node):
 
     def get_fields(self):
         return{
-            "statement": self.statement,
+            "statement": self.statement.get_fields(),
             "type": self.type
         }
         

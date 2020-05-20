@@ -19,3 +19,10 @@ class MOVESTATEMENT(Node):
     def evaluate(self):
         # TODO
         pass
+
+    def get_fields(self):
+        return{
+            "block_name": self.block_name,
+            "direction": self.direction,
+            "value": self.value
+        }
