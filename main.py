@@ -23,6 +23,11 @@ def main():
 
     print("If you get this message the code runs!")
 
+def run_game():
+    import game
+    print("Running generated game...")
+    game.main()
 
 if __name__ == "__main__":
     main()
+    run_game()
