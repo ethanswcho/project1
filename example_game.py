@@ -123,10 +123,8 @@ class MyGame(arcade.Window):
     def is_on_goal(self):
         """ Check if the player is on a goal block """
         if self.goal:
-            is_on = arcade.check_for_collision(self.player_sprite, self.goal)
-            if is_on:
-                return True
-            return False
+            return arcade.check_for_collision(self.player_sprite, self.goal)
+           
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
