@@ -83,11 +83,11 @@ class MyGame(arcade.Window):
         # Put some crates on the ground
         # This shows using a coordinate list to place sprites
         block_coordinate_list = [[512, 96],
-                           [256, 96],
-                           [768, 96]]
+                                 [256, 96],
+                                 [768, 96]]
 
-        self.add_block(block_coordinate_list)
-        self.add_moving_block()
+        self.add_static_blocks(block_coordinate_list)
+        self.add_moving_block(9, 4, 5, 9, -2)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
@@ -163,29 +163,30 @@ class MyGame(arcade.Window):
         else:
             self.player_sprite.change_x = 0
 
-    def add_block(self, block_coordinates):
-        # TODO: function for single block
+    def add_static_blocks(self, block_coordinates):
         """ 
         Parameters
         ----------
         block_coordinates : list
-            List of coordinates [(x, y)] that denote the locations to add the blocks
+            List of coordinates [(x, y)] that denote the locations to position the blocks
         """
         for coordinate in block_coordinates:
-            # block = arcade.Sprite(
-            #     "images/tiles/boxCrate_double.png", TILE_SCALING)
-            block = arcade.Sprite(
-                "images/tiles/grassMid.png", TILE_SCALING)
-            block.position = coordinate
-            self.wall_list.append(block)
+            self.add_static_block(coordinate)
 
-    def add_moving_block(self):
-        block = arcade.Sprite(":resources:images/tiles/grassMid.png", TILE_SCALING)
-        block.center_y = 3 * GRID_PIXEL_SIZE
-        block.center_x = 7 * GRID_PIXEL_SIZE
-        block.boundary_left = 5 * GRID_PIXEL_SIZE
-        block.boundary_right = 9 * GRID_PIXEL_SIZE
-        block.change_x = -2 * TILE_SCALING
+    def add_static_block(self, coordinate):
+        block = arcade.Sprite(
+            "images/tiles/grassMid.png", TILE_SCALING)
+        block.position = coordinate
+        self.wall_list.append(block)
+
+    def add_moving_block(self, center_x, center_y, boundary_left, boundary_right, change_x):
+        block = arcade.Sprite(
+            ":resources:images/tiles/dirtMid.png", TILE_SCALING)
+        block.center_x = center_x * GRID_PIXEL_SIZE
+        block.center_y = center_y * GRID_PIXEL_SIZE
+        block.boundary_left = boundary_left * GRID_PIXEL_SIZE
+        block.boundary_right = boundary_right * GRID_PIXEL_SIZE
+        block.change_x = change_x * TILE_SCALING
 
         self.wall_list.append(block)
         self.moving_wall_list.append(block)
