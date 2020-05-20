@@ -82,10 +82,7 @@ class MyGame(arcade.Window):
 
             # TODO: remove in final. test code for goal
             if (x == 11):
-                wall.color = arcade.csscolor.AQUA
-                flag = arcade.Sprite("images/items/flagRed1.png", TILE_SCALING)
-                flag.position = self.grid_to_pixels([11, 1])
-                self.goal = flag
+                self.set_goal_block(wall)
             self.wall_list.append(wall)
 
         # Put some crates on the ground
@@ -108,6 +105,13 @@ class MyGame(arcade.Window):
                                                              self.wall_list,
                                                              GRAVITY)
 
+    def set_goal_block(self, block):
+        # Set block as the goal block. Spawns a flag on top of the block.
+        block.color = arcade.csscolor.AQUA
+        flag = arcade.Sprite("images/items/flagRed1.png", TILE_SCALING)
+        flag.position = [block.position[0], block.position[1] + GRID_PIXEL_SIZE]
+        self.goal = flag
+
     def on_draw(self):
         """ Render the screen. """
 
@@ -124,6 +128,7 @@ class MyGame(arcade.Window):
         """ Check if the player is on a goal block """
         if self.goal:
             return arcade.check_for_collision(self.player_sprite, self.goal)
+        return False
            
 
     def on_key_press(self, key, modifiers):
