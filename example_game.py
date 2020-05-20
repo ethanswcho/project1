@@ -80,6 +80,13 @@ class MyGame(arcade.Window):
 
             if (x == 0):
                 wall.color = arcade.csscolor.GRAY
+
+            # TODO: remove in final. test code for goal
+            if (x == 11):
+                wall.color = arcade.csscolor.AQUA
+                flag = arcade.Sprite("images/items/flagRed1.png", TILE_SCALING)
+                flag.position = self.grid_to_pixels([11, 1])
+                self.goal = flag
             self.wall_list.append(wall)
 
         # Put some crates on the ground
@@ -93,7 +100,7 @@ class MyGame(arcade.Window):
         # TODO: remove from final code. testing code.
         self.add_static_blocks(block_coordinate_list)
         self.add_horizontal_moving_block(9, 4, 5, 9, -4)
-        self.add_horizontal_moving_block(5, 2, 1, 3, 4)
+        self.add_horizontal_moving_block(8, 3, 8, 10, 4)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
@@ -110,7 +117,16 @@ class MyGame(arcade.Window):
         # Draw our sprites
         self.wall_list.draw()
         self.coin_list.draw()
+        self.goal.draw()
         self.player_list.draw()
+
+    def is_on_goal(self):
+        """ Check if the player is on a goal block """
+        if self.goal:
+            is_on = arcade.check_for_collision(self.player_sprite, self.goal)
+            if is_on:
+                return True
+            return False
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -143,7 +159,8 @@ class MyGame(arcade.Window):
 
     def update(self, delta_time):
         """ Movement and game logic """
-
+        self.is_on_goal()
+        
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
         self.physics_engine.update()
