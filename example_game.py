@@ -3,17 +3,17 @@ Platformer Game
 """
 import arcade
 
-# Constants
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 650
-SPRITE_PIXEL_SIZE = 128
-SCREEN_TITLE = "CPSC 410 - Project 1"
-
-# Constants used to scale our sprites from their original size
+# Constants 
 CHARACTER_SCALING = 1
 TILE_SCALING = 0.5
 
+# Size constants
+SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
+SCREEN_WIDTH = 12 * GRID_PIXEL_SIZE
+SCREEN_HEIGHT = 6 * GRID_PIXEL_SIZE
+
+SCREEN_TITLE = "CPSC 410 - Project 1"
 
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 5
@@ -173,10 +173,18 @@ class MyGame(arcade.Window):
         block_coordinates : list
             List of coordinates [(x, y)] that denote the locations to position the blocks
         """
+
         for coordinate in block_coordinates:
             self.add_static_block(coordinate)
 
     def add_static_block(self, coordinate):
+        """ 
+        Parameters
+        ----------
+        coordinate : (int, int)
+            Coordinate (x, y) that denotes the location to position the block
+        """
+
         block = arcade.Sprite(
             "images/tiles/grassMid.png", TILE_SCALING)
         block.position = coordinate
@@ -202,7 +210,7 @@ class MyGame(arcade.Window):
         block.center_x = (center_x * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
         block.center_y = (center_y * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
         block.boundary_left = (boundary_left * GRID_PIXEL_SIZE)
-        block.boundary_right = (boundary_right * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
+        block.boundary_right = (boundary_right * GRID_PIXEL_SIZE)
         block.change_x = change_x * TILE_SCALING
     
         self.wall_list.append(block)
