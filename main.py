@@ -6,6 +6,9 @@ from libs.Tokenizer import Tokenizer
 from validate import validate
 from generate_game import generate_game
 
+from termcolor import colored
+import colorama
+import sys
 
 def main():
 
@@ -13,27 +16,52 @@ def main():
                 "do every", ":", "end loop", "ms", "block", "goal", "player", "up", "down", "left", "right", "colour",
                 "xpos", "ypos", "width", "height", "#"]
 
+    #Initialize colors
+    colorama.init()
+
+    print(colored("Initializing project...", "green"))
+    print(colored("Starting tokenizer...", "green"))
+
     Tokenizer.make_tokenizer("config.txt", literals)
 
+    print (colored("Tokenizing success...", "green"))
+
     program = PROGRAM()
+
+    print(colored("Starting parser...", "green"))
+
     parsed_commands = program.parse()
 
     is_valid, error_notes = validate(parsed_commands)
 
     if is_valid is False:
         for en in error_notes:
-            print(en)
-        """
-        Error handling (TBD) 
-        """
+            print(colored(en, "red"))
+        
+        #TODO: Better error handling here
+        #sys.exit()
+    
+    print(colored("Parsing success...", "green"))
+
+    print(colored("Generating game...", "green"))
 
     generate_game(parsed_commands)
 
-    print("If you get this message the code runs!")
+    print(colored("Generating game success...", "green"))
 
+    import generated_game
+
+    #print("If you get this message the code runs!")
+
+#Imports the generated gamefile (needs to be called generated_game.py), and executes the file's run() method.
+def run_game():
+    import generated_game
+    print(colored("Running generated game...", "green"))
+    generated_game.run()
 
 if __name__ == "__main__":
     main()
+    run_game()
 
 
 """

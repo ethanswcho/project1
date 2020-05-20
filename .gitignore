@@ -1,0 +1,8 @@
+#pyc files
+*.pyc
+
+#virtual environment (feel free to add name of your virtual environment folder here, as long as it doesnt overlap with other foldernames)
+env/
+
+#vscode settings
+.vscode/settings.json
