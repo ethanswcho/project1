@@ -10,8 +10,13 @@ TILE_SCALING = 0.5
 # Size constants
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
-SCREEN_WIDTH = 12 * GRID_PIXEL_SIZE
-SCREEN_HEIGHT = 8 * GRID_PIXEL_SIZE
+
+# Represents number of tiles for dimensions
+HORIZONTAL_WIDTH = 12
+VERTICAL_HEIGHT = 8
+
+SCREEN_WIDTH = HORIZONTAL_WIDTH * GRID_PIXEL_SIZE
+SCREEN_HEIGHT = VERTICAL_HEIGHT * GRID_PIXEL_SIZE
 
 SCREEN_TITLE = "CPSC 410 - Project 1"
 
@@ -50,8 +55,6 @@ class MyGame(arcade.Window):
         # Our physics engine
         self.physics_engine = None
 
-        self.game_over = False
-
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def setup(self):
@@ -70,18 +73,7 @@ class MyGame(arcade.Window):
 
         # Create the ground
         # This shows using a loop to place multiple sprites horizontally
-        for x in range(0, 12):
-            wall = arcade.Sprite("images/tiles/grassMid.png", TILE_SCALING)
-            grid_position = self.grid_to_pixels([x, 0])
-            wall.position = grid_position
-
-            if (x == 0):
-                wall.color = arcade.csscolor.GRAY
-
-            # TODO: remove in final. test code for goal
-            if (x == 11):
-                self.set_goal_block(wall)
-            self.wall_list.append(wall)
+        self.create_default_ground()
 
         # Put some crates on the ground
         # This shows using a coordinate list to place sprites
@@ -129,7 +121,6 @@ class MyGame(arcade.Window):
             return arcade.check_for_collision(self.player_sprite, self.goal)
         return False
            
-
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
@@ -143,6 +134,21 @@ class MyGame(arcade.Window):
             self.right_pressed = True
 
         self.process_keychange()
+
+    def create_default_ground(self):
+        # Creates the layer of ground for each level
+        for x in range(0, HORIZONTAL_WIDTH):
+            ground = arcade.Sprite("images/tiles/grassMid.png", TILE_SCALING)
+            grid_position = self.grid_to_pixels([x, 0])
+            ground.position = grid_position
+
+            if (x == 0):
+                ground.color = arcade.csscolor.GRAY
+
+            # TODO: remove this when goal block can be set dynamically
+            if (x == HORIZONTAL_WIDTH - 1):
+                self.set_goal_block(ground)
+            self.wall_list.append(ground)
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
