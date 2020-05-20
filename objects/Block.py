@@ -21,3 +21,12 @@ class Block:
             self.height = block_height
         else:
             self.height = DEFAULT_BLOCK_HEIGHT
+
+    def get_fields(self):
+        return {
+            "type": self.type,
+            "x": self.x,
+            "y": self.y,
+            "width": self.width,
+            "height": self.height
+        }

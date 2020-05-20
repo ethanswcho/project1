@@ -32,6 +32,11 @@ class MAKESTATEMENT(Node):
 
         self.block = Block(block_type, block_x, block_y, block_width, block_height)
 
+    def get_fields(self):
+        block_data = self.block.get_fields()
+        #block_data["block_name"] = self.block_name
+        return block_data
+
     def evaluate(self):
         # TODO
         pass

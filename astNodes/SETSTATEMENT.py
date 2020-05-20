@@ -33,3 +33,10 @@ class SETSTATEMENT(Node):
     def evaluate(self):
         # TODO
         pass
+
+    def get_fields(self):
+        return{
+            "object": self.object,
+            "field": self.field,
+            "value": self.value
+        }

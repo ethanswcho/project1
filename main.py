@@ -6,7 +6,6 @@ from libs.Tokenizer import Tokenizer
 from validate import validate
 from generate_game import generate_game
 
-
 def main():
 
     literals = ["arena size", "make a", "called", "destroy", "set", "of", "to", "change", "by", "move", "wait",
@@ -18,10 +17,17 @@ def main():
     program = PROGRAM()
     program.parse()
 
+    
+
     # TODO
     # generate_game()
 
     print("If you get this message the code runs!")
+
+    game_data = program.get_data()
+    print(game_data)
+    
+   
 
 def run_game():
     import game

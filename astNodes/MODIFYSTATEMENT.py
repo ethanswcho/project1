@@ -39,3 +39,9 @@ class MODIFYSTATEMENT(Node):
 
     def evaluate(self):
         self.statement.evaluate()
+
+    def get_fields(self):
+        return{
+            "statement": self.statement.get_fields(),
+            "type": self.type
+        }

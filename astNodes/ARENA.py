@@ -22,6 +22,14 @@ class ARENA(Node):
         self.tokenizer.get_and_check_next(",")
         self.height = int(self.tokenizer.get_next())
 
+    def get_fields(self):
+        return {
+            "width": self.width,
+            "height": self.height,
+            "title": self.title,
+            "background_color": self.background_colour
+        }
+
     def evaluate(self):
         # TODO
         pass

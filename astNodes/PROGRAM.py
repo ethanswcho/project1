@@ -32,6 +32,19 @@ class PROGRAM(Node):
                 s.parse()
                 self.modify_statements.append(s)
 
+    def get_data(self):
+
+        arena_data = self.arena.get_fields()
+        make_statements_data = [ms.get_fields() for ms in self.make_statements]
+        modify_statements_data = [ms.get_fields() for ms in self.modify_statements]
+
+        return{
+            "arena": arena_data,
+            "make_statements": make_statements_data,
+            "modify_statements": modify_statements_data
+        }
+
+
     def evaluate(self):
         # TODO
         pass

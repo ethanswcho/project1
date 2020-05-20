@@ -27,3 +27,10 @@ class STATEMENT(Node):
 
     def evaluate(self):
         self.statement.evaluate()
+
+    def get_fields(self):
+        return{
+            "statement": self.statement,
+            "type": self.type
+        }
+        

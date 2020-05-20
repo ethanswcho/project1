@@ -13,3 +13,8 @@ class REMOVESTATEMENT(Node):
 
     def evaluate(self):
         pass
+
+    def get_fields(self):
+        return{
+            "block_name": self.block_name
+        }
