@@ -67,7 +67,7 @@ class MyGame(arcade.Window):
 
         # Set up the player, specifically placing it at these coordinates.
         self.player_sprite = arcade.Sprite(
-            "images/player_1/player_stand.png", CHARACTER_SCALING)
+            ":resources:images/animated_characters/zombie/zombie_idle.png", CHARACTER_SCALING)
         self.player_sprite.position = self.grid_to_pixels([0, 1])
         self.player_list.append(self.player_sprite)
 
@@ -89,7 +89,7 @@ class MyGame(arcade.Window):
     def set_goal_block(self, block):
         # Set block as the goal block. Spawns a flag on top of the block.
         block.color = arcade.csscolor.AQUA
-        flag = arcade.Sprite("images/items/flagRed1.png", TILE_SCALING)
+        flag = arcade.Sprite(":resources:images/items/flagRed1.png", TILE_SCALING)
         flag.position = [block.position[0], block.position[1] + GRID_PIXEL_SIZE]
         self.goal = flag
 
@@ -219,7 +219,7 @@ class MyGame(arcade.Window):
 
         grid_position = self.grid_to_pixels(coordinate)
         block = arcade.Sprite(
-            "images/tiles/grassMid.png", TILE_SCALING)
+            ":resources:images/tiles/grassMid.png", TILE_SCALING)
         block.position = grid_position
         self.wall_list.append(block)
 
