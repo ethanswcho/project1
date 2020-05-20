@@ -18,7 +18,7 @@ SCREEN_TITLE = "CPSC 410 - Project 1"
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 5
 GRAVITY = 1
-PLAYER_JUMP_SPEED = 15
+PLAYER_JUMP_SPEED = 14
 
 
 class MyGame(arcade.Window):
@@ -61,7 +61,6 @@ class MyGame(arcade.Window):
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
         self.coin_list = arcade.SpriteList()
-        self.moving_wall_list = arcade.SpriteList()
 
         self.game_over = False
 
@@ -101,6 +100,7 @@ class MyGame(arcade.Window):
         self.add_static_blocks(block_coordinate_list)
         self.add_horizontal_moving_block(9, 4, 5, 9, -4)
         self.add_horizontal_moving_block(8, 3, 8, 10, 4)
+        self.add_vertical_moving_block(3, 3, 4, 2, 2)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
@@ -249,7 +249,34 @@ class MyGame(arcade.Window):
         block.change_x = change_x * TILE_SCALING
 
         self.wall_list.append(block)
-        self.moving_wall_list.append(block)
+
+        return block
+
+    def add_vertical_moving_block(self, start_x, start_y, boundary_top, boundary_bottom, change_y):
+        """ 
+        Parameters
+        ----------
+        start_x : int
+            The x-tile that the block will be spawned on
+        start_y: int
+            The y-tile that the block will be spawned on
+        boundary_top: int
+            The x-tile that the block will not move past when going left
+        boundary_bottom: int
+            The x-tile that the block will not move past when going right
+        change_y: int
+            How many tiles to move per second
+        """
+        block = arcade.Sprite(
+            ":resources:images/tiles/dirtMid.png", TILE_SCALING)
+
+        grid_position = self.grid_to_pixels([start_x, start_y])
+        block.position = grid_position
+        block.boundary_top = boundary_top * GRID_PIXEL_SIZE
+        block.boundary_bottom = boundary_bottom * GRID_PIXEL_SIZE
+        block.change_y = change_y * TILE_SCALING
+
+        self.wall_list.append(block)
 
         return block
 
