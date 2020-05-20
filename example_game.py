@@ -68,16 +68,15 @@ class MyGame(arcade.Window):
         # Set up the player, specifically placing it at these coordinates.
         self.player_sprite = arcade.Sprite(
             "images/player_1/player_stand.png", CHARACTER_SCALING)
-        self.player_sprite.center_x = 64
-        self.player_sprite.center_y = 96
+        self.player_sprite.position = self.grid_to_pixels([0, 1])
         self.player_list.append(self.player_sprite)
 
         # Create the ground
         # This shows using a loop to place multiple sprites horizontally
-        for x in range(0, 1250, 64):
+        for x in range(0, 12):
             wall = arcade.Sprite("images/tiles/grassMid.png", TILE_SCALING)
-            wall.center_x = x
-            wall.center_y = 32
+            grid_position = self.grid_to_pixels([x, 0])
+            wall.position = grid_position
             self.wall_list.append(wall)
 
         # Put some crates on the ground
