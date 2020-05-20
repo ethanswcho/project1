@@ -82,12 +82,15 @@ class MyGame(arcade.Window):
 
         # Put some crates on the ground
         # This shows using a coordinate list to place sprites
+        
+        # TODO: change to grid system
         block_coordinate_list = [[512, 96],
                                  [256, 96],
                                  [768, 96]]
 
         self.add_static_blocks(block_coordinate_list)
         self.add_moving_block(9, 4, 5, 9, -2)
+        self.add_moving_block(13, 0, 4, 9, -6)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
@@ -180,12 +183,13 @@ class MyGame(arcade.Window):
         self.wall_list.append(block)
 
     def add_moving_block(self, center_x, center_y, boundary_left, boundary_right, change_x):
+        # TODO: add change_y for vertical movement
         block = arcade.Sprite(
             ":resources:images/tiles/dirtMid.png", TILE_SCALING)
-        block.center_x = center_x * GRID_PIXEL_SIZE
-        block.center_y = center_y * GRID_PIXEL_SIZE
-        block.boundary_left = boundary_left * GRID_PIXEL_SIZE
-        block.boundary_right = boundary_right * GRID_PIXEL_SIZE
+        block.center_x = (center_x * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
+        block.center_y = (center_y * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
+        block.boundary_left = (boundary_left * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
+        block.boundary_right = (boundary_right * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
         block.change_x = change_x * TILE_SCALING
 
         self.wall_list.append(block)
