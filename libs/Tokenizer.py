@@ -1,3 +1,6 @@
+import re
+
+
 class Tokenizer:
 
     program = None
@@ -43,6 +46,7 @@ class Tokenizer:
         print(self.tokens)
 
     """
+    Returns the current token
     """
     def __check_next(self):
         token = ""
@@ -53,6 +57,8 @@ class Tokenizer:
         return token
 
     """
+    Returns the current token
+    Advances self.current_token by 1
     """
     def get_next(self):
         token = ""
@@ -64,23 +70,32 @@ class Tokenizer:
         return token
 
     """
+    Returns true if the current token matches the given regexp
     """
     def check_token(self, regexp: str):
         s = self.__check_next()
         print("comparing: |" + s + "|  to  |" + regexp + "|")
-        return s.matches(regexp)
+        return re.match(regexp, s) is not None
 
     """
+    Checks if the current token matches the given regexp, returns it if true
+    Otherwise, throws an error
     """
     def get_and_check_next(self, regexp: str):
         s = self.get_next()
-        if not s.matches(regexp):
+        if re.match(regexp, s) is None:
             raise Exception("Unexpected next token for Parsing! Expected something matching: " + regexp + " but got: " + s)
         print("matched: " + s + "  to  " + regexp)
         return s
 
     """
-    Create singleton
+    Returns true if there are more tokens
+    """
+    def more_tokens(self):
+        return self.current_token < len(self.tokens)
+
+    """
+    Creates the singleton instance
     """
     @staticmethod
     def make_tokenizer(filename: str, literals: list):
@@ -88,7 +103,7 @@ class Tokenizer:
             Tokenizer.the_tokenizer = Tokenizer(filename, literals)
 
     """
-    Get singleton instance
+    Returns the singleton instance if existing, instantiates and returns it if not
     """
     @staticmethod
     def get_tokenizer():

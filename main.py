@@ -1,5 +1,5 @@
 """
-main method of the program
+Main method of the program
 """
 from astNodes.PROGRAM import PROGRAM
 from libs.Tokenizer import Tokenizer
@@ -11,36 +11,18 @@ def main():
 
     literals = ["arena size", "make a", "called", "destroy", "set", "of", "to", "change", "by", "move", "wait",
                 "do every", ":", "end loop", "ms", "block", "goal", "player", "up", "down", "left", "right", "colour",
-                "xpos", "ypos", "width", "height", "#"]
+                "xpos", "ypos", "width", "height", ",", "at", "with size"]
 
     Tokenizer.make_tokenizer("config.txt", literals)
 
     program = PROGRAM()
-    parsed_commands = program.parse()
+    program.parse()
 
-    is_valid, error_notes = validate(parsed_commands)
-
-    if is_valid is False:
-        for en in error_notes:
-            print(en)
-        """
-        Error handling (TBD) 
-        """
-
-    generate_game(parsed_commands)
+    # TODO
+    # generate_game()
 
     print("If you get this message the code runs!")
 
 
 if __name__ == "__main__":
     main()
-
-
-"""
-sample input:
-    "
-    make blue block block1 at 20, 40 with 40 width
-    do every 10 second: block1 shift right by 5
-    do every 10 second: gravity increases by 2
-    "
-"""
