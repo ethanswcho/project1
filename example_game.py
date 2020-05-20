@@ -3,7 +3,7 @@ Platformer Game
 """
 import arcade
 
-# Constants 
+# Constants
 CHARACTER_SCALING = 1
 TILE_SCALING = 0.5
 
@@ -82,7 +82,7 @@ class MyGame(arcade.Window):
 
         # Put some crates on the ground
         # This shows using a coordinate list to place sprites
-        
+
         # TODO: change to grid system
         block_coordinate_list = [[2, 1],
                                  [5, 1],
@@ -176,8 +176,10 @@ class MyGame(arcade.Window):
         """
 
         grid_position = [0, 0]
-        grid_position[0] = coordinate[0] * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
-        grid_position[1] = coordinate[1] * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+        grid_position[0] = coordinate[0] * \
+            GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+        grid_position[1] = coordinate[1] * \
+            GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
         return grid_position
 
     def add_static_blocks(self, block_coordinates):
@@ -205,13 +207,13 @@ class MyGame(arcade.Window):
         block.position = grid_position
         self.wall_list.append(block)
 
-    def add_horizontal_moving_block(self, center_x, center_y, boundary_left, boundary_right, change_x):
+    def add_horizontal_moving_block(self, start_x, start_y, boundary_left, boundary_right, change_x):
         """ 
         Parameters
         ----------
-        center_x : int
+        start_x : int
             The x-tile that the block will be spawned on
-        center_y: int
+        start_y: int
             The y-tile that the block will be spawned on
         boudary_left: int
             The x-tile that the block will not move past when going left
@@ -223,16 +225,17 @@ class MyGame(arcade.Window):
         block = arcade.Sprite(
             ":resources:images/tiles/dirtMid.png", TILE_SCALING)
 
-        grid_position = self.grid_to_pixels([center_x, center_y])
+        grid_position = self.grid_to_pixels([start_x, start_y])
         block.position = grid_position
         block.boundary_left = boundary_left * GRID_PIXEL_SIZE
         block.boundary_right = boundary_right * GRID_PIXEL_SIZE
         block.change_x = change_x * TILE_SCALING
-    
+
         self.wall_list.append(block)
         self.moving_wall_list.append(block)
 
         return block
+
 
 def main():
     """ Main method """
