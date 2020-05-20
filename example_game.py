@@ -6,12 +6,14 @@ import arcade
 # Constants
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 650
+SPRITE_PIXEL_SIZE = 128
 SCREEN_TITLE = "CPSC 410 - Project 1"
 
 # Constants used to scale our sprites from their original size
 CHARACTER_SCALING = 1
 TILE_SCALING = 0.5
-COIN_SCALING = 0.5
+
+GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 5
@@ -34,6 +36,7 @@ class MyGame(arcade.Window):
         self.coin_list = None
         self.wall_list = None
         self.player_list = None
+        self.moving_wall_list = None
 
         # Track the current state of what key is pressed
         self.left_pressed = False
@@ -48,6 +51,8 @@ class MyGame(arcade.Window):
         # Our physics engine
         self.physics_engine = None
 
+        self.game_over = False
+
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def setup(self):
@@ -56,6 +61,9 @@ class MyGame(arcade.Window):
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
         self.coin_list = arcade.SpriteList()
+        self.moving_wall_list = arcade.SpriteList()
+
+        self.game_over = False
 
         # Set up the player, specifically placing it at these coordinates.
         self.player_sprite = arcade.Sprite(
@@ -79,6 +87,7 @@ class MyGame(arcade.Window):
                            [768, 96]]
 
         self.add_block(block_coordinate_list)
+        self.add_moving_block()
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
@@ -155,6 +164,7 @@ class MyGame(arcade.Window):
             self.player_sprite.change_x = 0
 
     def add_block(self, block_coordinates):
+        # TODO: function for single block
         """ 
         Parameters
         ----------
@@ -162,10 +172,23 @@ class MyGame(arcade.Window):
             List of coordinates [(x, y)] that denote the locations to add the blocks
         """
         for coordinate in block_coordinates:
+            # block = arcade.Sprite(
+            #     "images/tiles/boxCrate_double.png", TILE_SCALING)
             block = arcade.Sprite(
-                "images/tiles/boxCrate_double.png", TILE_SCALING)
+                "images/tiles/grassMid.png", TILE_SCALING)
             block.position = coordinate
             self.wall_list.append(block)
+
+    def add_moving_block(self):
+        block = arcade.Sprite(":resources:images/tiles/grassMid.png", TILE_SCALING)
+        block.center_y = 3 * GRID_PIXEL_SIZE
+        block.center_x = 7 * GRID_PIXEL_SIZE
+        block.boundary_left = 5 * GRID_PIXEL_SIZE
+        block.boundary_right = 9 * GRID_PIXEL_SIZE
+        block.change_x = -2 * TILE_SCALING
+
+        self.wall_list.append(block)
+        self.moving_wall_list.append(block)
 
 
 def main():
