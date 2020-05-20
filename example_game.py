@@ -167,12 +167,25 @@ class MyGame(arcade.Window):
         else:
             self.player_sprite.change_x = 0
 
+    def grid_to_pixels(self, coordinate):
+        """ 
+        Parameters
+        ----------
+        coordinate : list
+            A coordinate [x, y] in tile location
+        """
+
+        grid_position = [0, 0]
+        grid_position[0] = coordinate[0] * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+        grid_position[1] = coordinate[1] * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+        return grid_position
+
     def add_static_blocks(self, block_coordinates):
         """ 
         Parameters
         ----------
         block_coordinates : list
-            List of coordinates [(x, y)] that denote the tile locations to position the blocks
+            List of coordinates [[x, y]] that denote the tile locations to position the blocks
         """
 
         for coordinate in block_coordinates:
@@ -186,11 +199,10 @@ class MyGame(arcade.Window):
             Coordinate (x, y) that denotes the tile location to position the block
         """
 
-        coordinate[0] = coordinate[0] * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
-        coordinate[1] = coordinate[1] * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+        grid_position = self.grid_to_pixels(coordinate)
         block = arcade.Sprite(
             "images/tiles/grassMid.png", TILE_SCALING)
-        block.position = coordinate
+        block.position = grid_position
         self.wall_list.append(block)
 
     def add_horizontal_moving_block(self, center_x, center_y, boundary_left, boundary_right, change_x):
@@ -210,10 +222,11 @@ class MyGame(arcade.Window):
         """
         block = arcade.Sprite(
             ":resources:images/tiles/dirtMid.png", TILE_SCALING)
-        block.center_x = (center_x * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
-        block.center_y = (center_y * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
-        block.boundary_left = (boundary_left * GRID_PIXEL_SIZE)
-        block.boundary_right = (boundary_right * GRID_PIXEL_SIZE)
+
+        grid_position = self.grid_to_pixels([center_x, center_y])
+        block.position = grid_position
+        block.boundary_left = boundary_left * GRID_PIXEL_SIZE
+        block.boundary_right = boundary_right * GRID_PIXEL_SIZE
         block.change_x = change_x * TILE_SCALING
     
         self.wall_list.append(block)
