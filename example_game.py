@@ -11,7 +11,7 @@ TILE_SCALING = 0.5
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 SCREEN_WIDTH = 12 * GRID_PIXEL_SIZE
-SCREEN_HEIGHT = 6 * GRID_PIXEL_SIZE
+SCREEN_HEIGHT = 8 * GRID_PIXEL_SIZE
 
 SCREEN_TITLE = "CPSC 410 - Project 1"
 
@@ -77,12 +77,15 @@ class MyGame(arcade.Window):
             wall = arcade.Sprite("images/tiles/grassMid.png", TILE_SCALING)
             grid_position = self.grid_to_pixels([x, 0])
             wall.position = grid_position
+
+            if (x == 0):
+                wall.color = arcade.csscolor.GRAY
             self.wall_list.append(wall)
 
         # Put some crates on the ground
         # This shows using a coordinate list to place sprites
 
-        # TODO: change to grid system
+        # TODO: change to grid system, remove in final code
         block_coordinate_list = [[2, 1],
                                  [5, 1],
                                  [7, 1]]
@@ -90,7 +93,7 @@ class MyGame(arcade.Window):
         # TODO: remove from final code. testing code.
         self.add_static_blocks(block_coordinate_list)
         self.add_horizontal_moving_block(9, 4, 5, 9, -4)
-        self.add_horizontal_moving_block(0, 0, 0, 3, 3)
+        self.add_horizontal_moving_block(5, 2, 1, 3, 4)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
