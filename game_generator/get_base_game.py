@@ -4,7 +4,7 @@ Since the base game is quite long, use this to get it.
 
 
 
-def get_base_game(main: str):
+def get_base_game(initialize_game: str, formatted_code: str):
     
     return """import arcade
 
@@ -39,9 +39,10 @@ PLAYER_JUMP_SPEED = 14
 class MyGame(arcade.Window):
     \"""
     Main application class.
-        Optional inputs: "width", "height"
+        Optional inputs: "width", "height", "title"
         "width": Arena width
         "height": Arena height
+        "title": Arena title
     \"""
 
     # Initializes first screen 
@@ -132,6 +133,7 @@ class MyGame(arcade.Window):
         arcade.start_render()
 
         # Draw our sprites
+        self.block_list.draw()
         self.wall_list.draw()
         self.goal.draw()
         self.player_list.draw()
@@ -266,6 +268,7 @@ class MyGame(arcade.Window):
             ":resources:images/tiles/grassMid.png", TILE_SCALING)
         self.wall_list.append(block)
         self.block_list.append(block)
+        print(self.wall_list, self.block_list)
         return block
 
     # Sets a block's position in tile position
@@ -322,13 +325,16 @@ class MyGame(arcade.Window):
 
 def main():
 
-    {}
+{}
 
     window.setup()
+
+{}
+
     arcade.run()
 
 
 if __name__ == "__main__":
     main()
 
-""".format(main)
+""".format(initialize_game, formatted_code)

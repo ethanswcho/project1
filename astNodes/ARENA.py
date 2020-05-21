@@ -23,4 +23,4 @@ class ARENA(Node):
         self.height = int(self.tokenizer.get_next())
 
     def evaluate(self):
-        return "window = MyGame(width={}, height={}, title=\"{}\")".format(self.width, self.height, self.title)
+        return "    window = MyGame(width={}, height={}, title=\"{}\")".format(self.width, self.height, self.title)

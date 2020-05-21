@@ -31,9 +31,10 @@ PLAYER_JUMP_SPEED = 14
 class MyGame(arcade.Window):
     """
     Main application class.
-        Optional inputs: "width", "height"
+        Optional inputs: "width", "height", "title"
         "width": Arena width
         "height": Arena height
+        "title": Arena title
     """
 
     # Initializes first screen 
@@ -124,6 +125,7 @@ class MyGame(arcade.Window):
         arcade.start_render()
 
         # Draw our sprites
+        self.block_list.draw()
         self.wall_list.draw()
         self.goal.draw()
         self.player_list.draw()
@@ -258,6 +260,7 @@ class MyGame(arcade.Window):
             ":resources:images/tiles/grassMid.png", TILE_SCALING)
         self.wall_list.append(block)
         self.block_list.append(block)
+        print(self.wall_list, self.block_list)
         return block
 
     # Sets a block's position in tile position
@@ -313,18 +316,32 @@ class MyGame(arcade.Window):
 def main():
 
     window = MyGame(width=12, height=12, title="Game")
+
+    window.setup()
+
     b1 = window.make_block()
     window.set_block_position(b1, [1, 1])
         
     b2 = window.make_block()
-    window.set_block_position(b2, [3, 3])
+    window.set_block_position(b2, [2, 2])
         
     b3 = window.make_block()
-    window.set_block_position(b3, [5, 5])
+    window.set_block_position(b3, [3, 3])
+        
+    b4 = window.make_block()
+    window.set_block_position(b4, [4, 4])
+        
+    b5 = window.make_block()
+    window.set_block_position(b5, [5, 5])
+        
+    b6 = window.make_block()
+    window.set_block_position(b6, [6, 6])
+        
+    b7 = window.make_block()
+    window.set_block_position(b7, [7, 7])
         
 
 
-    window.setup()
     arcade.run()
 
 
