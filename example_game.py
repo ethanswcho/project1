@@ -80,6 +80,14 @@ class MyGame(arcade.Window):
         # block_coordinate_list = [[2, 1],
         #                          [5, 1],
         #                          [7, 1]]
+        
+        # TODO: test code, remove from final code
+        block1 = self.make_block()
+        block2 = self.make_block()
+        self.set_block_position(block1, [5, 1])
+        self.set_block_position(block2, [6, 2])
+        self.set_block_right_movement(block2, 2, 3)
+        self.set_block_left_movement(block1, 2, 3)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
@@ -135,9 +143,12 @@ class MyGame(arcade.Window):
             grid_position = self.grid_coord_to_pixels([x, 0])
             ground.position = grid_position
 
+            if (x % 2 == 0):
+                ground.color = arcade.csscolor.PALE_TURQUOISE
+
             if (x == 0):
                 ground.color = arcade.csscolor.GRAY
-
+            
             # TODO: remove this when goal block can be set dynamically
             if (x == ARENA_WIDTH - 1):
                 self.set_goal_block(ground)
@@ -204,83 +215,56 @@ class MyGame(arcade.Window):
     def grid_point_to_pixels(self, point):
         return point * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
 
-    def add_static_blocks(self, block_coordinates):
-        """ 
-        Parameters
-        ----------
-        block_coordinates : list
-            List of coordinates [[x, y]] that denote the tile locations to position the blocks
-        """
+    # Add blocks to the wall_list
+    def add_blocks(self, blocks):
+        for block in blocks:
+            self.wall_list.append(block)
 
-        for coordinate in block_coordinates:
-            self.add_static_block(coordinate)
-
-    def add_static_block(self, coordinate):
-        """ 
-        Parameters
-        ----------
-        coordinate : (int, int)
-            Coordinate (x, y) that denotes the tile location to position the block
-        """
-
-        grid_position = self.grid_coord_to_pixels(coordinate)
+    # Creates a block and sets its position to coordinate
+    def make_block(self):
         block = arcade.Sprite(
             ":resources:images/tiles/grassMid.png", TILE_SCALING)
-        block.position = grid_position
         self.wall_list.append(block)
+        return block
 
-    def set_horizontal_moving_block(self, start_x, start_y, boundary_left, boundary_right, change_x):
+    # Sets a block's position in tile position
+    def set_block_position(self, block, coordinate):
+        grid_position = self.grid_coord_to_pixels(coordinate)
+        block.position = grid_position
+
+    # Moves a block to the right by displacement number of tiles at speed
+    def set_block_right_movement(self, block, displacement, speed):
         """ 
         Parameters
         ----------
-        start_x : int
-            The x-tile that the block will be spawned on
-        start_y: int
-            The y-tile that the block will be spawned on
-        boudary_left: int
-            The x-tile that the block will not move past when going left
-        boundary_right: int
-            The x-tile that the block will not move past when going right
-        change_x: int
-            How many tiles to move per second
+        block : arcade.Sprite
+            The block to move
+        displacement : int
+            Number of tiles to move to the right
+        speed : int
+            Speed at which the block moves. Must be positive.
         """
-        block = arcade.Sprite(
-            ":resources:images/tiles/dirtMid.png", TILE_SCALING)
+        assert(speed > 0)
+        block.boundary_left = None
+        block.boundary_right = block.position[0] + (displacement * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
+        block._set_change_x(speed * TILE_SCALING)
 
-        grid_position = self.grid_coord_to_pixels([start_x, start_y])
-        block.position = grid_position
-        block.boundary_left = boundary_left * GRID_PIXEL_SIZE
-        block.boundary_right = boundary_right * GRID_PIXEL_SIZE
-        block.change_x = change_x * TILE_SCALING
-
-        return block
-
-    def set_vertical_moving_block(self, start_x, start_y, boundary_top, boundary_bottom, change_y):
+    # Moves a block to the right by displacement number of tiles at speed
+    def set_block_left_movement(self, block, displacement, speed):
         """ 
         Parameters
         ----------
-        start_x : int
-            The x-tile that the block will be spawned on
-        start_y: int
-            The y-tile that the block will be spawned on
-        boundary_top: int
-            The x-tile that the block will not move past when going left
-        boundary_bottom: int
-            The x-tile that the block will not move past when going right
-        change_y: int
-            How many tiles to move per second
+        block : arcade.Sprite
+            The block to move
+        displacement : int
+            Number of tiles to move to the left
+        speed : int
+            Speed at which the block moves. Must be positive.
         """
-        block = arcade.Sprite(
-            ":resources:images/tiles/dirtMid.png", TILE_SCALING)
-
-        grid_position = self.grid_coord_to_pixels([start_x, start_y])
-        block.position = grid_position
-        block.boundary_top = boundary_top * GRID_PIXEL_SIZE
-        block.boundary_bottom = boundary_bottom * GRID_PIXEL_SIZE
-        block.change_y = change_y * TILE_SCALING
-
-        return block
-
+        assert(speed > 0)
+        block.boundary_right = None
+        block.boundary_left = block.position[0] - (displacement * GRID_PIXEL_SIZE) - + (GRID_PIXEL_SIZE / 2)
+        block._set_change_x(-speed * TILE_SCALING)
 
 def main():
     """ Main method """
