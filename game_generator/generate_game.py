@@ -7,17 +7,12 @@ import os
 
 from game_helpers import make_block
 from astNodes.PROGRAM import PROGRAM
-from .build_main import build_main
-from .build_gamefile import build_gamefile
-
-from .get_base_game import get_base_game
+from .get_game_code import get_game_code
 
 game_dir = "game.py"
 
 
 def generate_game(program: PROGRAM):
-
-
 
     # Code required to initialize the game (and arena)
     initialize_game = program.arena.evaluate()
@@ -27,8 +22,6 @@ def generate_game(program: PROGRAM):
 
     for ms in program.make_statements:
         other_code.append(ms.evaluate())
-
-    #main = build_main(code)
     
     # Format the list of codes in other_code to fit python syntax
     formatted_code = """"""
@@ -44,5 +37,5 @@ def generate_game(program: PROGRAM):
 
     # Initialize gamefile in specified directory above, and write base game
     game_file = open(game_dir, "w")
-    game_file.write(get_base_game(initialize_game, formatted_code))  
+    game_file.write(get_game_code(initialize_game, formatted_code))  
     game_file.close()
