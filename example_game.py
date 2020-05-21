@@ -219,6 +219,21 @@ class MyGame(arcade.Window):
     def grid_point_to_pixels(self, point):
         return point * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
 
+    def pixels_to_grid_coord(self, pixels):
+        """
+        parameters
+        ------------
+        pixels: list
+            Pixels [x, y]
+        """
+
+        grid_coord = [0,0]
+        grid_postion[0] = self.pixels_to_grid_point(grid_coord[0])
+        grid_position[1] = self.pixels_to_grid_point(grid_coord[1])
+    
+    def grid_point_to_pixels(self, pixels):
+        return pixels/SPRITE_PIXEL_SIZE*TILE_SCALING
+
     # Add blocks to the block_list
     def add_blocks(self, blocks):
         for block in blocks:
@@ -289,6 +304,8 @@ class MyGame(arcade.Window):
 def main():
     """ Main method """
     window = MyGame()
+
+
     window.setup()
     arcade.run()
 
