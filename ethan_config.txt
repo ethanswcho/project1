@@ -1,5 +1,4 @@
 arena size 12, 12
-make a block called b1 with size 2, 1 at 1, 1
 make a block called b2 at 2, 2
 make a block called b3 at 3, 3
 make a block called b4 at 4, 4
