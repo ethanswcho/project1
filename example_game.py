@@ -69,7 +69,7 @@ class MyGame(arcade.Window):
         # Set up the player, specifically placing it at these coordinates.
         self.player_sprite = arcade.Sprite(
             ":resources:images/animated_characters/zombie/zombie_idle.png", CHARACTER_SCALING)
-        self.player_sprite.position = self.grid_to_pixels([0, 1])
+        self.player_sprite.position = self.grid_coord_to_pixels([0, 1])
         self.player_list.append(self.player_sprite)
 
         # Create the ground
@@ -132,7 +132,7 @@ class MyGame(arcade.Window):
         for x in range(0, ARENA_WIDTH):
             ground = arcade.Sprite(
                 ":resources:images/tiles/grassMid.png", TILE_SCALING)
-            grid_position = self.grid_to_pixels([x, 0])
+            grid_position = self.grid_coord_to_pixels([x, 0])
             ground.position = grid_position
 
             if (x == 0):
@@ -187,7 +187,7 @@ class MyGame(arcade.Window):
         else:
             self.player_sprite.change_x = 0
 
-    def grid_to_pixels(self, coordinate):
+    def grid_coord_to_pixels(self, coordinate):
         """ 
         Parameters
         ----------
@@ -196,11 +196,13 @@ class MyGame(arcade.Window):
         """
 
         grid_position = [0, 0]
-        grid_position[0] = coordinate[0] * \
-            GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
-        grid_position[1] = coordinate[1] * \
-            GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+        grid_position[0] = self.grid_point_to_pixels(coordinate[0])
+        grid_position[1] = self.grid_point_to_pixels(coordinate[1])
         return grid_position
+
+    # Change a single point from tile to pixels
+    def grid_point_to_pixels(self, point):
+        return point * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
 
     def add_static_blocks(self, block_coordinates):
         """ 
@@ -221,7 +223,7 @@ class MyGame(arcade.Window):
             Coordinate (x, y) that denotes the tile location to position the block
         """
 
-        grid_position = self.grid_to_pixels(coordinate)
+        grid_position = self.grid_coord_to_pixels(coordinate)
         block = arcade.Sprite(
             ":resources:images/tiles/grassMid.png", TILE_SCALING)
         block.position = grid_position
@@ -245,7 +247,7 @@ class MyGame(arcade.Window):
         block = arcade.Sprite(
             ":resources:images/tiles/dirtMid.png", TILE_SCALING)
 
-        grid_position = self.grid_to_pixels([start_x, start_y])
+        grid_position = self.grid_coord_to_pixels([start_x, start_y])
         block.position = grid_position
         block.boundary_left = boundary_left * GRID_PIXEL_SIZE
         block.boundary_right = boundary_right * GRID_PIXEL_SIZE
@@ -271,7 +273,7 @@ class MyGame(arcade.Window):
         block = arcade.Sprite(
             ":resources:images/tiles/dirtMid.png", TILE_SCALING)
 
-        grid_position = self.grid_to_pixels([start_x, start_y])
+        grid_position = self.grid_coord_to_pixels([start_x, start_y])
         block.position = grid_position
         block.boundary_top = boundary_top * GRID_PIXEL_SIZE
         block.boundary_bottom = boundary_bottom * GRID_PIXEL_SIZE
