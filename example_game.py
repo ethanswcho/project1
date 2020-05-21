@@ -84,10 +84,8 @@ class MyGame(arcade.Window):
         #                          [7, 1]]
 
         # TODO: test code, remove from final code
-        # block1 = self.make_block()
-        # block2 = self.make_block()
-        # self.set_block_position(block1, [5, 1])
-        # self.set_block_position(block2, [6, 2])
+        block1 = self.make_block([5, 1])
+        block2 = self.make_block([6, 2])
         # self.set_block_right_movement(block2, 2, 3)
         # self.set_block_left_movement(block1, 2, 3)
 
@@ -226,11 +224,12 @@ class MyGame(arcade.Window):
             self.block_list.append(block)
 
     # Creates a block and sets its position to coordinate
-    def make_block(self):
+    def make_block(self, coordinate):
         block = arcade.Sprite(
             ":resources:images/tiles/grassMid.png", TILE_SCALING)
         self.wall_list.append(block)
         self.block_list.append(block)
+        self.set_block_position(block, coordinate)
         return block
 
     # Sets a block's position in tile position
