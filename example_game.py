@@ -127,7 +127,7 @@ class MyGame(arcade.Window):
     def create_default_ground(self):
         # Creates the layer of ground for each level
         for x in range(0, HORIZONTAL_WIDTH):
-            ground = arcade.Sprite("images/tiles/grassMid.png", TILE_SCALING)
+            ground = arcade.Sprite(":resources:images/tiles/grassMid.png", TILE_SCALING)
             grid_position = self.grid_to_pixels([x, 0])
             ground.position = grid_position
 
