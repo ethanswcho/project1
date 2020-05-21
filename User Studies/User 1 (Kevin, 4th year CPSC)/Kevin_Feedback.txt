@@ -9,7 +9,7 @@ I told Kevin to try and make a game using our language. He was able to figure ou
 Feedback presented:
 - Initially thought "block" was referencing Mario coin blocks instead of actual ground.
 - Confused on how to make a starting point for the player
-- Coordinate grid system should be easier defined (i.e. is 0, 0 top left corner or bottom left corner)
+- Coordinate grid system should be better defined (i.e. is 0, 0 top left corner or bottom left corner)
      - Kevin thought top left was 0, 0 intuitively
 
 Otherwise, intuitive loop system and statements. Said that it would be intuitive to use after trying it for a longer time.
