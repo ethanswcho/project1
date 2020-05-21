@@ -55,6 +55,10 @@ class MyGame(arcade.Window):
         # Our physics engine
         self.physics_engine = None
 
+        # Game properties
+        self.goal = None
+        self.game_over = False
+
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def setup(self):
@@ -104,9 +108,12 @@ class MyGame(arcade.Window):
         self.goal.draw()
         self.player_list.draw()
 
+        if self.game_over:
+            self.draw_game_over()
+
     def is_on_goal(self):
         """ Check if the player is on a goal block """
-        if self.goal:
+        if self.goal is not None:
             return arcade.check_for_collision(self.player_sprite, self.goal)
         return False
            
@@ -121,6 +128,8 @@ class MyGame(arcade.Window):
             self.left_pressed = True
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.right_pressed = True
+        elif key == arcade.key.SPACE and self.game_over:
+            self.setup()
 
         self.process_keychange()
 
@@ -156,11 +165,25 @@ class MyGame(arcade.Window):
 
     def update(self, delta_time):
         """ Movement and game logic """
-        self.is_on_goal()
-        
-        # Call update on all sprites (The sprites don't do much in this
-        # example though.)
-        self.physics_engine.update()
+        if not self.game_over:
+            # Call update on all sprites (The sprites don't do much in this
+            # example though.)
+            test = self.player_sprite.position
+            self.physics_engine.update()
+            if self.is_on_goal():
+                self.end_game()
+
+    def end_game(self):
+        self.game_over = True
+
+    def draw_game_over(self):
+        win_message = "NOICE"
+        arcade.draw_text(win_message, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, arcade.color.WHITE, 54, align="center",
+                         anchor_x="center", anchor_y="bottom")
+
+        restart_message = "Press space to restart"
+        arcade.draw_text(restart_message, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, arcade.color.WHITE, 16, align="center",
+                         anchor_x="center", anchor_y="top")
 
     def process_keychange(self):
         """
@@ -224,14 +247,14 @@ class MyGame(arcade.Window):
         self.wall_list.append(block)
 
     def set_horizontal_moving_block(self, start_x, start_y, boundary_left, boundary_right, change_x):
-        """ 
+        """
         Parameters
         ----------
         start_x : int
             The x-tile that the block will be spawned on
         start_y: int
             The y-tile that the block will be spawned on
-        boudary_left: int
+        boundary_left: int
             The x-tile that the block will not move past when going left
         boundary_right: int
             The x-tile that the block will not move past when going right
@@ -250,7 +273,7 @@ class MyGame(arcade.Window):
         return block
 
     def set_vertical_moving_block(self, start_x, start_y, boundary_top, boundary_bottom, change_y):
-        """ 
+        """
         Parameters
         ----------
         start_x : int
