@@ -254,7 +254,7 @@ class MyGame(arcade.Window):
         block.boundary_left = None
         block.boundary_right = block.position[0] + \
             (displacement * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
-        block._set_change_x(speed * TILE_SCALING)
+        block.change_x = speed * TILE_SCALING
 
     # Moves a block to the right by displacement number of tiles at speed
     def set_block_left_movement(self, block, displacement, speed):
@@ -271,8 +271,8 @@ class MyGame(arcade.Window):
         assert(speed > 0)
         block.boundary_right = None
         block.boundary_left = block.position[0] - \
-            (displacement * GRID_PIXEL_SIZE) - + (GRID_PIXEL_SIZE / 2)
-        block._set_change_x(-speed * TILE_SCALING)
+            (displacement * GRID_PIXEL_SIZE) - (GRID_PIXEL_SIZE / 2)
+        block.change_x = -speed * TILE_SCALING
 
     # Check all blocks in self.block_list and halt its movement if it has reached its boudary
     def check_movement(self):
