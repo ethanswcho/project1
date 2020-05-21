@@ -15,11 +15,17 @@ GRID_PIXEL_SIZE = int(SPRITE_PIXEL_SIZE * TILE_SCALING)
 ARENA_WIDTH = 12
 ARENA_HEIGHT = 8
 
-# Represents the dimensions of the arena in pixels
+
+
+# Represents the default arena fields
 DEFAULT_SCREEN_WIDTH = ARENA_WIDTH * GRID_PIXEL_SIZE
 DEFAULT_SCREEN_HEIGHT = ARENA_HEIGHT * GRID_PIXEL_SIZE
-
 DEFAULT_SCREEN_TITLE = "CPSC 410 - Project 1"
+
+# Represents the actual arena fields (may change depending on __init__ input)
+SCREEN_WIDTH = DEFAULT_SCREEN_WIDTH
+SCREEN_HEIGHT = DEFAULT_SCREEN_HEIGHT
+TITLE = DEFAULT_SCREEN_TITLE
 
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 5
@@ -39,15 +45,13 @@ class MyGame(arcade.Window):
     def __init__(self, **args):
 
         # Call the parent class and set up the window
-        SCREEN_WIDTH = DEFAULT_SCREEN_WIDTH
-        SCREEN_HEIGHT = DEFAULT_SCREEN_HEIGHT
-        TITLE = DEFAULT_SCREEN_TITLE
+        
         if "width" in args:
-            SCREEN_WIDTH = args["width"]
+            SCREEN_WIDTH = args["width"] * GRID_PIXEL_SIZE
         if "height" in args:
-            SCREEN_HEIGHT = args["height"]
+            SCREEN_HEIGHT = args["height"] * GRID_PIXEL_SIZE
         if "title" in args:
-            SCREEN_TITLE = args["title"]
+            SCREEN_TITLE = args["title"] * GRID_PIXEL_SIZE
 
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
