@@ -4,7 +4,7 @@ Platformer Game
 import arcade
 
 # Constants
-CHARACTER_SCALING = 1
+CHARACTER_SCALING = 0.6
 TILE_SCALING = 0.5
 
 # Size constants
@@ -28,7 +28,7 @@ TITLE = DEFAULT_SCREEN_TITLE
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 5
 GRAVITY = 1
-PLAYER_JUMP_SPEED = 15
+PLAYER_JUMP_SPEED = 18
 
 
 class MyGame(arcade.Window):
@@ -91,7 +91,7 @@ class MyGame(arcade.Window):
         # Set up the player, specifically placing it at these coordinates.
         self.player_sprite = arcade.Sprite(
             ":resources:images/animated_characters/zombie/zombie_idle.png", CHARACTER_SCALING)
-        self.player_sprite.position = self.grid_coord_to_pixels([0, 1])
+        self.player_sprite.position = [0, GRID_PIXEL_SIZE]
         self.player_list.append(self.player_sprite)
 
         # Create the ground
