@@ -1,4 +1,9 @@
 
+def apply_arena(arena: str):
+
+
+
+    return """
 import arcade
 
 # Constants
@@ -29,7 +34,7 @@ class MyGame(arcade.Window):
     def __init__(self):
 
         # Call the parent class and set up the window
-        super().__init__(650, 1000, "Game")
+        {}
 
         # These are 'lists' that keep track of our sprites. Each sprite should
         # go into a list.
@@ -174,8 +179,10 @@ class MyGame(arcade.Window):
     def grid_to_pixels(self, coordinate):
 
         grid_position = [0, 0]
-        grid_position[0] = coordinate[0] *             GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
-        grid_position[1] = coordinate[1] *             GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+        grid_position[0] = coordinate[0] * \
+            GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+        grid_position[1] = coordinate[1] * \
+            GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
         return grid_position
 
     def add_static_blocks(self, block_coordinates):
@@ -226,4 +233,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-        
+        """.format(arena)

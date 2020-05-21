@@ -4,7 +4,7 @@ Main method of the program
 from astNodes.PROGRAM import PROGRAM
 from libs.Tokenizer import Tokenizer
 from validate import validate
-from generate_game import generate_game
+from game_generator.generate_game import generate_game
 
 
 def main():
@@ -18,10 +18,12 @@ def main():
     program = PROGRAM()
     program.parse()
 
-    # TODO
-    # generate_game()
+    game = generate_game(program)
 
-    print("If you get this message the code runs!")
+    # Make a new file called game.py, and save generated game
+    f = open("game.py", "w")
+    f.write(game)
+    f.close()
 
 def run_game():
     import game

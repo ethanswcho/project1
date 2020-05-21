@@ -23,5 +23,4 @@ class ARENA(Node):
         self.height = int(self.tokenizer.get_next())
 
     def evaluate(self):
-        # TODO
-        pass
+        return "super().__init__({}, {}, \"{}\")".format(self.width, self.height, self.title)
