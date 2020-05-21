@@ -24,7 +24,7 @@ SCREEN_TITLE = "CPSC 410 - Project 1"
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 5
 GRAVITY = 1
-PLAYER_JUMP_SPEED = 14
+PLAYER_JUMP_SPEED = 15
 
 
 class MyGame(arcade.Window):
@@ -57,6 +57,10 @@ class MyGame(arcade.Window):
         # Our physics engine
         self.physics_engine = None
 
+        # Game properties
+        self.goal = None
+        self.game_over = False
+
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def setup(self):
@@ -77,6 +81,9 @@ class MyGame(arcade.Window):
         # Create the ground
         # This shows using a loop to place multiple sprites horizontally
         self.create_default_ground()
+
+        # Create the edge boundary
+        self.create_edge_boundary()
 
         # Example coordinates to place crates on the ground
         # block_coordinate_list = [[2, 1],
@@ -115,9 +122,12 @@ class MyGame(arcade.Window):
         self.goal.draw()
         self.player_list.draw()
 
+        if self.game_over:
+            self.draw_game_over()
+
     def is_on_goal(self):
         """ Check if the player is on a goal block """
-        if self.goal:
+        if self.goal is not None:
             return arcade.check_for_collision(self.player_sprite, self.goal)
         return False
 
@@ -132,6 +142,8 @@ class MyGame(arcade.Window):
             self.left_pressed = True
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.right_pressed = True
+        elif key == arcade.key.SPACE and self.game_over:
+            self.setup()
 
         self.process_keychange()
 
@@ -155,6 +167,18 @@ class MyGame(arcade.Window):
                 self.set_goal_block(ground)
             self.wall_list.append(ground)
 
+    def create_edge_boundary(self):
+        # Creates the boundary walls
+        for y in range(0, ARENA_HEIGHT):
+            side_l = arcade.Sprite(":resources:images/tiles/stoneCenter_rounded.png", TILE_SCALING)
+            side_r = arcade.Sprite(":resources:images/tiles/stoneCenter_rounded.png", TILE_SCALING)
+            grid_position_l = self.grid_coord_to_pixels([-1, y])
+            grid_position_r = self.grid_coord_to_pixels([ARENA_WIDTH, y])
+            side_l.position = grid_position_l
+            side_r.position = grid_position_r
+            self.wall_list.append(side_l)
+            self.wall_list.append(side_r)
+
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
 
@@ -172,12 +196,25 @@ class MyGame(arcade.Window):
 
     def update(self, delta_time):
         """ Movement and game logic """
-        self.is_on_goal()
+        if not self.game_over:
+            # Call update on all sprites (The sprites don't do much in this
+            # example though.)
+            self.physics_engine.update()
+            self.check_movement()
+            if self.is_on_goal():
+                self.end_game()
 
-        # Call update on all sprites (The sprites don't do much in this
-        # example though.)
-        self.physics_engine.update()
-        self.check_movement()
+    def end_game(self):
+        self.game_over = True
+
+    def draw_game_over(self):
+        win_message = "NOICE"
+        arcade.draw_text(win_message, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, arcade.color.WHITE, 54, align="center",
+                         anchor_x="center", anchor_y="bottom")
+
+        restart_message = "Press space to restart"
+        arcade.draw_text(restart_message, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, arcade.color.WHITE, 16, align="center",
+                         anchor_x="center", anchor_y="top")
 
     def process_keychange(self):
         """
