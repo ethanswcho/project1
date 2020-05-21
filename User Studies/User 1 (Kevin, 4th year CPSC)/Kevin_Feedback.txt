@@ -1,0 +1,11 @@
+User #1: CPSC student, 4th year, took CPSC 311, very comfortable with EBNF's
+
+Was shown a snippet of sample code and the EBNF
+
+Feedback presented:
+- Confused on how to make a starting point for the player
+- Coordinate grid system should be easier defined (i.e. is 0, 0 top left corner or bottom left corner)
+
+Otherwise, intuitive loop system and statements. Said that it would be intuitive to use after trying it for a longer time.
+
+
