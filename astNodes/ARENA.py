@@ -1,8 +1,8 @@
 from libs.Node import Node
 
 # Constants
-DEFAULT_WIDTH = 1000
-DEFAULT_HEIGHT = 650
+DEFAULT_WIDTH = 8
+DEFAULT_HEIGHT = 12
 SCREEN_TITLE = "Game"
 BACKGROUND_COLOUR = "arcade.csscolor.CORNFLOWER_BLUE"
 
@@ -23,4 +23,4 @@ class ARENA(Node):
         self.height = int(self.tokenizer.get_next())
 
     def evaluate(self):
-        return "super().__init__({}, {}, \"{}\")".format(self.width, self.height, self.title)
+        return "window = MyGame(width={}, height={}, title=\"{}\")".format(self.width, self.height, self.title)

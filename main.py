@@ -34,4 +34,4 @@ def run_game():
 
 if __name__ == "__main__":
     main()
-    #run_game()
+    run_game()

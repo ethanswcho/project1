@@ -4,7 +4,7 @@ Since the base game is quite long, use this to get it.
 
 
 
-def get_base_game():
+def get_base_game(main: str):
     
     return """import arcade
 
@@ -316,4 +316,16 @@ class MyGame(arcade.Window):
             if (block.boundary_left is not None):
                 if (block.center_x - GRID_PIXEL_SIZE / 2 <= block.boundary_left):
                     block.stop()
-"""
+
+def main():
+
+    {}
+
+    window.setup()
+    arcade.run()
+
+
+if __name__ == "__main__":
+    main()
+
+""".format(main)

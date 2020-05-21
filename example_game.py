@@ -19,7 +19,7 @@ ARENA_HEIGHT = 8
 DEFAULT_SCREEN_WIDTH = ARENA_WIDTH * GRID_PIXEL_SIZE
 DEFAULT_SCREEN_HEIGHT = ARENA_HEIGHT * GRID_PIXEL_SIZE
 
-SCREEN_TITLE = "CPSC 410 - Project 1"
+DEFAULT_SCREEN_TITLE = "CPSC 410 - Project 1"
 
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 5
@@ -41,10 +41,13 @@ class MyGame(arcade.Window):
         # Call the parent class and set up the window
         SCREEN_WIDTH = DEFAULT_SCREEN_WIDTH
         SCREEN_HEIGHT = DEFAULT_SCREEN_HEIGHT
+        TITLE = DEFAULT_SCREEN_TITLE
         if "width" in args:
             SCREEN_WIDTH = args["width"]
         if "height" in args:
             SCREEN_HEIGHT = args["height"]
+        if "title" in args:
+            SCREEN_TITLE = args["title"]
 
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 

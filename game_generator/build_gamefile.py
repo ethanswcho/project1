@@ -1,4 +1,15 @@
-import arcade
+"""
+Initialize game with arena settings (if any)
+"""
+
+from .get_base_game import get_base_game
+import os
+
+game_dir = "game.py"
+
+def build_gamefile(main: str):
+
+    return"""import arcade
 
 # Constants
 CHARACTER_SCALING = 1
@@ -25,12 +36,12 @@ PLAYER_JUMP_SPEED = 14
 
 
 class MyGame(arcade.Window):
-    """
+    \"""
     Main application class.
         Optional inputs: "width", "height"
         "width": Arena width
         "height": Arena height
-    """
+    \"""
 
     # Initializes first screen 
     def __init__(self, **args):
@@ -68,7 +79,7 @@ class MyGame(arcade.Window):
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def setup(self):
-        """ Set up the game here. Call this function to restart the game. """
+        \""" Set up the game here. Call this function to restart the game. \"""
         # Create the Sprite lists
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
@@ -115,7 +126,7 @@ class MyGame(arcade.Window):
         self.goal = flag
 
     def on_draw(self):
-        """ Render the screen. """
+        \""" Render the screen. \"""
 
         # Clear the screen to the background color
         arcade.start_render()
@@ -126,13 +137,13 @@ class MyGame(arcade.Window):
         self.player_list.draw()
 
     def is_on_goal(self):
-        """ Check if the player is on a goal block """
+        \""" Check if the player is on a goal block \"""
         if self.goal:
             return arcade.check_for_collision(self.player_sprite, self.goal)
         return False
 
     def on_key_press(self, key, modifiers):
-        """Called whenever a key is pressed. """
+        \"""Called whenever a key is pressed. \"""
 
         if key == arcade.key.UP or key == arcade.key.W:
             self.up_pressed = True
@@ -166,7 +177,7 @@ class MyGame(arcade.Window):
             self.wall_list.append(ground)
 
     def on_key_release(self, key, modifiers):
-        """Called when the user releases a key. """
+        \"""Called when the user releases a key. \"""
 
         if key == arcade.key.UP or key == arcade.key.W:
             self.up_pressed = False
@@ -181,7 +192,7 @@ class MyGame(arcade.Window):
         self.process_keychange()
 
     def update(self, delta_time):
-        """ Movement and game logic """
+        \""" Movement and game logic \"""
         self.is_on_goal()
 
         # Call update on all sprites (The sprites don't do much in this
@@ -190,9 +201,9 @@ class MyGame(arcade.Window):
         self.check_movement()
 
     def process_keychange(self):
-        """
+        \"""
         Called when we change a key up/down or we move on/off a ladder.
-        """
+        \"""
         # Process up/down
         if self.up_pressed and not self.down_pressed:
             if self.physics_engine.can_jump() and not self.jump_needs_reset:
@@ -211,12 +222,12 @@ class MyGame(arcade.Window):
             self.player_sprite.change_x = 0
 
     def grid_coord_to_pixels(self, coordinate):
-        """ 
+        \""" 
         Parameters
         ----------
         coordinate : list
             A coordinate [x, y] in tile location
-        """
+        \"""
 
         grid_position = [0, 0]
         grid_position[0] = self.grid_point_to_pixels(coordinate[0])
@@ -229,12 +240,12 @@ class MyGame(arcade.Window):
 
     # Convert [x, y] in pixels to [x, y] in grid coordinates
     def pixels_to_grid_coord(self, pixels):
-        """
+        \"""
         parameters
         ------------
         pixels: list
             Pixels [x, y]
-        """
+        \"""
 
         grid_coord = [0,0]
         grid_coord[0] = self.pixels_to_grid_point(grid_coord[0])
@@ -264,7 +275,7 @@ class MyGame(arcade.Window):
 
     # Moves a block to the right by displacement number of tiles at speed
     def set_block_right_movement(self, block, displacement, speed):
-        """ 
+        \""" 
         Parameters
         ----------
         block : arcade.Sprite
@@ -273,15 +284,16 @@ class MyGame(arcade.Window):
             Number of tiles to move to the right
         speed : int
             Speed at which the block moves. Must be positive.
-        """
+        \"""
         assert(speed > 0)
         block.boundary_left = None
-        block.boundary_right = block.position[0] +             (displacement * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
+        block.boundary_right = block.position[0] + \
+            (displacement * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
         block._set_change_x(speed * TILE_SCALING)
 
     # Moves a block to the right by displacement number of tiles at speed
     def set_block_left_movement(self, block, displacement, speed):
-        """ 
+        \""" 
         Parameters
         ----------
         block : arcade.Sprite
@@ -290,10 +302,11 @@ class MyGame(arcade.Window):
             Number of tiles to move to the left
         speed : int
             Speed at which the block moves. Must be positive.
-        """
+        \"""
         assert(speed > 0)
         block.boundary_right = None
-        block.boundary_left = block.position[0] -             (displacement * GRID_PIXEL_SIZE) - + (GRID_PIXEL_SIZE / 2)
+        block.boundary_left = block.position[0] - \
+            (displacement * GRID_PIXEL_SIZE) - + (GRID_PIXEL_SIZE / 2)
         block._set_change_x(-speed * TILE_SCALING)
 
     # Check all blocks in self.block_list and halt its movement if it has reached its boudary
@@ -307,15 +320,9 @@ class MyGame(arcade.Window):
                 if (block.center_x - GRID_PIXEL_SIZE / 2 <= block.boundary_left):
                     block.stop()
 
-def main():
+{}
 
-    window = MyGame(width=650, height=1000, title="Game")
-
-
-    window.setup()
-    arcade.run()
+""".format(main)
 
 
-if __name__ == "__main__":
-    main()
-
+    
