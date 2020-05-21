@@ -40,6 +40,7 @@ class MyGame(arcade.Window):
         # These are 'lists' that keep track of our sprites. Each sprite should
         # go into a list.
         self.wall_list = None
+        self.block_list = None
         self.player_list = None
         self.moving_wall_list = None
 
@@ -63,6 +64,7 @@ class MyGame(arcade.Window):
         # Create the Sprite lists
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
+        self.block_list = arcade.SpriteList()
 
         self.game_over = False
 
@@ -80,14 +82,14 @@ class MyGame(arcade.Window):
         # block_coordinate_list = [[2, 1],
         #                          [5, 1],
         #                          [7, 1]]
-        
+
         # TODO: test code, remove from final code
-        block1 = self.make_block()
-        block2 = self.make_block()
-        self.set_block_position(block1, [5, 1])
-        self.set_block_position(block2, [6, 2])
-        self.set_block_right_movement(block2, 2, 3)
-        self.set_block_left_movement(block1, 2, 3)
+        # block1 = self.make_block()
+        # block2 = self.make_block()
+        # self.set_block_position(block1, [5, 1])
+        # self.set_block_position(block2, [6, 2])
+        # self.set_block_right_movement(block2, 2, 3)
+        # self.set_block_left_movement(block1, 2, 3)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
@@ -143,12 +145,13 @@ class MyGame(arcade.Window):
             grid_position = self.grid_coord_to_pixels([x, 0])
             ground.position = grid_position
 
+            # TODO: test code to make grid clearer
             if (x % 2 == 0):
                 ground.color = arcade.csscolor.PALE_TURQUOISE
 
             if (x == 0):
                 ground.color = arcade.csscolor.GRAY
-            
+
             # TODO: remove this when goal block can be set dynamically
             if (x == ARENA_WIDTH - 1):
                 self.set_goal_block(ground)
@@ -176,6 +179,7 @@ class MyGame(arcade.Window):
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
         self.physics_engine.update()
+        self.check_movement()
 
     def process_keychange(self):
         """
@@ -215,16 +219,18 @@ class MyGame(arcade.Window):
     def grid_point_to_pixels(self, point):
         return point * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
 
-    # Add blocks to the wall_list
+    # Add blocks to the block_list
     def add_blocks(self, blocks):
         for block in blocks:
             self.wall_list.append(block)
+            self.block_list.append(block)
 
     # Creates a block and sets its position to coordinate
     def make_block(self):
         block = arcade.Sprite(
             ":resources:images/tiles/grassMid.png", TILE_SCALING)
         self.wall_list.append(block)
+        self.block_list.append(block)
         return block
 
     # Sets a block's position in tile position
@@ -246,7 +252,8 @@ class MyGame(arcade.Window):
         """
         assert(speed > 0)
         block.boundary_left = None
-        block.boundary_right = block.position[0] + (displacement * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
+        block.boundary_right = block.position[0] + \
+            (displacement * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
         block._set_change_x(speed * TILE_SCALING)
 
     # Moves a block to the right by displacement number of tiles at speed
@@ -263,8 +270,21 @@ class MyGame(arcade.Window):
         """
         assert(speed > 0)
         block.boundary_right = None
-        block.boundary_left = block.position[0] - (displacement * GRID_PIXEL_SIZE) - + (GRID_PIXEL_SIZE / 2)
+        block.boundary_left = block.position[0] - \
+            (displacement * GRID_PIXEL_SIZE) - + (GRID_PIXEL_SIZE / 2)
         block._set_change_x(-speed * TILE_SCALING)
+
+    # Check all blocks in self.block_list and halt its movement if it has reached its boudary
+    def check_movement(self):
+        for block in self.block_list:
+            if (block.boundary_right is not None):
+                if (block.center_x + GRID_PIXEL_SIZE / 2 >= block.boundary_right):
+                    block.stop()
+
+            if (block.boundary_left is not None):
+                if (block.center_x - GRID_PIXEL_SIZE / 2 <= block.boundary_left):
+                    block.stop()
+
 
 def main():
     """ Main method """
