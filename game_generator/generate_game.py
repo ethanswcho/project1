@@ -20,9 +20,9 @@ def generate_game(program: PROGRAM):
     # List of generated code from user inputs
     code = []
 
-    arena_code = program.arena.evaluate()
-
-    code.append(arena_code)
+    code.append(program.arena.evaluate())
+    for ms in program.make_statements:
+        code.append(ms.evaluate())
 
     #main = build_main(code)
     
@@ -39,4 +39,5 @@ def generate_game(program: PROGRAM):
 
     # Initialize gamefile in specified directory above, and write base game
     game_file = open(game_dir, "w")
-    game_file.write(get_base_game(main))   
+    game_file.write(get_base_game(main))  
+    game_file.close()

@@ -309,7 +309,16 @@ class MyGame(arcade.Window):
 
 def main():
 
-    window = MyGame(width=650, height=1000, title="Game")
+    window = MyGame(width=12, height=12, title="Game")
+    b1 = window.make_block()
+    window.set_block_position(b1, [1, 1])
+        
+    b2 = window.make_block()
+    window.set_block_position(b2, [3, 3])
+        
+    b3 = window.make_block()
+    window.set_block_position(b3, [5, 5])
+        
 
 
     window.setup()

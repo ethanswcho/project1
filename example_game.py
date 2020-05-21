@@ -53,10 +53,10 @@ class MyGame(arcade.Window):
 
         # These are 'lists' that keep track of our sprites. Each sprite should
         # go into a list.
-        self.wall_list = None
-        self.block_list = None
-        self.player_list = None
-        self.moving_wall_list = None
+        self.wall_list = []
+        self.block_list = []
+        self.player_list = []
+        self.moving_wall_list = []
 
         # Track the current state of what key is pressed
         self.left_pressed = False

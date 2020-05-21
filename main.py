@@ -13,7 +13,8 @@ def main():
                 "do every", ":", "end loop", "ms", "block", "goal", "player", "up", "down", "left", "right", "colour",
                 "xpos", "ypos", "width", "height", ",", "at", "with size"]
 
-    Tokenizer.make_tokenizer("config.txt", literals)
+    #Tokenizer.make_tokenizer("config.txt", literals)
+    Tokenizer.make_tokenizer("ethan_config.txt", literals)
 
     program = PROGRAM()
     program.parse()
