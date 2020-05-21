@@ -4,7 +4,7 @@ Platformer Game
 import arcade
 
 # Constants
-CHARACTER_SCALING = 1
+CHARACTER_SCALING = 0.6
 TILE_SCALING = 0.5
 
 # Size constants
@@ -15,34 +15,50 @@ GRID_PIXEL_SIZE = int(SPRITE_PIXEL_SIZE * TILE_SCALING)
 ARENA_WIDTH = 12
 ARENA_HEIGHT = 8
 
-# Represents the dimensions of the arena in pixels
-SCREEN_WIDTH = ARENA_WIDTH * GRID_PIXEL_SIZE
-SCREEN_HEIGHT = ARENA_HEIGHT * GRID_PIXEL_SIZE
+# Represents the default arena fields
+DEFAULT_SCREEN_WIDTH = ARENA_WIDTH * GRID_PIXEL_SIZE
+DEFAULT_SCREEN_HEIGHT = ARENA_HEIGHT * GRID_PIXEL_SIZE
+DEFAULT_SCREEN_TITLE = "CPSC 410 - Project 1"
 
-SCREEN_TITLE = "CPSC 410 - Project 1"
+# Represents the actual arena fields (may change depending on __init__ input)
+SCREEN_WIDTH = DEFAULT_SCREEN_WIDTH
+SCREEN_HEIGHT = DEFAULT_SCREEN_HEIGHT
+TITLE = DEFAULT_SCREEN_TITLE
 
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 5
 GRAVITY = 1
-PLAYER_JUMP_SPEED = 15
+PLAYER_JUMP_SPEED = 18
 
 
 class MyGame(arcade.Window):
     """
     Main application class.
+        Optional inputs: "width", "height"
+        "width": Arena width
+        "height": Arena height
     """
 
-    def __init__(self):
+    # Initializes first screen 
+    def __init__(self, **args):
 
         # Call the parent class and set up the window
+        
+        if "width" in args:
+            SCREEN_WIDTH = args["width"] * GRID_PIXEL_SIZE
+        if "height" in args:
+            SCREEN_HEIGHT = args["height"] * GRID_PIXEL_SIZE
+        if "title" in args:
+            SCREEN_TITLE = args["title"] * GRID_PIXEL_SIZE
+
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
         # These are 'lists' that keep track of our sprites. Each sprite should
         # go into a list.
-        self.wall_list = None
-        self.block_list = None
-        self.player_list = None
-        self.moving_wall_list = None
+        self.wall_list = []
+        self.block_list = []
+        self.player_list = []
+        self.moving_wall_list = []
 
         # Track the current state of what key is pressed
         self.left_pressed = False
@@ -75,7 +91,7 @@ class MyGame(arcade.Window):
         # Set up the player, specifically placing it at these coordinates.
         self.player_sprite = arcade.Sprite(
             ":resources:images/animated_characters/zombie/zombie_idle.png", CHARACTER_SCALING)
-        self.player_sprite.position = self.grid_coord_to_pixels([0, 1])
+        self.player_sprite.position = [0, GRID_PIXEL_SIZE]
         self.player_list.append(self.player_sprite)
 
         # Create the ground
@@ -257,6 +273,22 @@ class MyGame(arcade.Window):
     def grid_point_to_pixels(self, point):
         return point * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
 
+    # Convert [x, y] in pixels to [x, y] in grid coordinates
+    def pixels_to_grid_coord(self, pixels):
+        """
+        parameters
+        ------------
+        pixels: list
+            Pixels [x, y]
+        """
+
+        grid_coord = [0,0]
+        grid_coord[0] = self.pixels_to_grid_point(grid_coord[0])
+        grid_coord[1] = self.pixels_to_grid_point(grid_coord[1])
+    
+    def pixels_to_grid_point(self, pixels):
+        return pixels/SPRITE_PIXEL_SIZE*TILE_SCALING
+
     # Add blocks to the block_list
     def add_blocks(self, blocks):
         for block in blocks:
@@ -375,14 +407,3 @@ class MyGame(arcade.Window):
             elif block.boundary_bottom is not None:
                 if (block.center_y - GRID_PIXEL_SIZE / 2 <= block.boundary_bottom):
                     block.stop()
-
-
-def main():
-    """ Main method """
-    window = MyGame()
-    window.setup()
-    arcade.run()
-
-
-if __name__ == "__main__":
-    main()

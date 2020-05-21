@@ -4,7 +4,7 @@ Main method of the program
 from astNodes.PROGRAM import PROGRAM
 from libs.Tokenizer import Tokenizer
 from validate import validate
-from generate_game import generate_game
+from game_generator.generate_game import generate_game
 
 
 def main():
@@ -13,15 +13,20 @@ def main():
                 "do every", ":", "end loop", "ms", "block", "goal", "player", "up", "down", "left", "right", "colour",
                 "xpos", "ypos", "width", "height", ",", "at", "with size"]
 
-    Tokenizer.make_tokenizer("config.txt", literals)
+    #Tokenizer.make_tokenizer("config.txt", literals)
+    Tokenizer.make_tokenizer("ethan_config.txt", literals)
 
     program = PROGRAM()
     program.parse()
 
-    # TODO
-    # generate_game()
+    generate_game(program)
 
-    print("If you get this message the code runs!")
+    """
+    # Make a new file called game.py, and save generated game
+    f = open("game.py", "w")
+    f.write(game)
+    f.close()
+    """
 
 def run_game():
     import game

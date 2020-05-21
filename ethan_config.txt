@@ -1,0 +1,7 @@
+arena size 12, 12
+make a block called b2 at 2, 2
+make a block called b3 at 3, 3
+make a block called b4 at 4, 4
+make a block called b5 at 5, 5
+make a block called b6 at 6, 6
+make a block called b7 at 7, 7
