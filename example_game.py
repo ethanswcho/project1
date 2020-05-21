@@ -11,12 +11,13 @@ TILE_SCALING = 0.5
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = int(SPRITE_PIXEL_SIZE * TILE_SCALING)
 
-# Represents number of tiles for dimensions
-HORIZONTAL_WIDTH = 12
-VERTICAL_HEIGHT = 8
+# Represents dimensions of the arena in tiles
+ARENA_WIDTH = 12
+ARENA_HEIGHT = 8
 
-SCREEN_WIDTH = HORIZONTAL_WIDTH * GRID_PIXEL_SIZE
-SCREEN_HEIGHT = VERTICAL_HEIGHT * GRID_PIXEL_SIZE
+# Represents the dimensions of the arena in pixels
+SCREEN_WIDTH = ARENA_WIDTH * GRID_PIXEL_SIZE
+SCREEN_HEIGHT = ARENA_HEIGHT * GRID_PIXEL_SIZE
 
 SCREEN_TITLE = "CPSC 410 - Project 1"
 
@@ -126,7 +127,7 @@ class MyGame(arcade.Window):
 
     def create_default_ground(self):
         # Creates the layer of ground for each level
-        for x in range(0, HORIZONTAL_WIDTH):
+        for x in range(0, ARENA_WIDTH):
             ground = arcade.Sprite(":resources:images/tiles/grassMid.png", TILE_SCALING)
             grid_position = self.grid_to_pixels([x, 0])
             ground.position = grid_position
@@ -135,7 +136,7 @@ class MyGame(arcade.Window):
                 ground.color = arcade.csscolor.GRAY
 
             # TODO: remove this when goal block can be set dynamically
-            if (x == HORIZONTAL_WIDTH - 1):
+            if (x == ARENA_WIDTH - 1):
                 self.set_goal_block(ground)
             self.wall_list.append(ground)
 
