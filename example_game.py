@@ -90,8 +90,10 @@ class MyGame(arcade.Window):
     def set_goal_block(self, block):
         # Set block as the goal block. Spawns a flag on top of the block.
         block.color = arcade.csscolor.AQUA
-        flag = arcade.Sprite(":resources:images/items/flagRed1.png", TILE_SCALING)
-        flag.position = [block.position[0], block.position[1] + GRID_PIXEL_SIZE]
+        flag = arcade.Sprite(
+            ":resources:images/items/flagRed1.png", TILE_SCALING)
+        flag.position = [block.position[0],
+                         block.position[1] + GRID_PIXEL_SIZE]
         self.goal = flag
 
     def on_draw(self):
@@ -110,7 +112,7 @@ class MyGame(arcade.Window):
         if self.goal:
             return arcade.check_for_collision(self.player_sprite, self.goal)
         return False
-           
+
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
@@ -128,7 +130,8 @@ class MyGame(arcade.Window):
     def create_default_ground(self):
         # Creates the layer of ground for each level
         for x in range(0, ARENA_WIDTH):
-            ground = arcade.Sprite(":resources:images/tiles/grassMid.png", TILE_SCALING)
+            ground = arcade.Sprite(
+                ":resources:images/tiles/grassMid.png", TILE_SCALING)
             grid_position = self.grid_to_pixels([x, 0])
             ground.position = grid_position
 
@@ -158,7 +161,7 @@ class MyGame(arcade.Window):
     def update(self, delta_time):
         """ Movement and game logic """
         self.is_on_goal()
-        
+
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
         self.physics_engine.update()
