@@ -3,6 +3,7 @@
 
 #virtual environment (feel free to add name of your virtual environment folder here, as long as it doesnt overlap with other foldernames)
 env/
+/game.py
 
 #vscode settings
 .vscode/settings.json

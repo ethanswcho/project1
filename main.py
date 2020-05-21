@@ -18,12 +18,14 @@ def main():
     program = PROGRAM()
     program.parse()
 
-    game = generate_game(program)
+    generate_game(program)
 
+    """
     # Make a new file called game.py, and save generated game
     f = open("game.py", "w")
     f.write(game)
     f.close()
+    """
 
 def run_game():
     import game
@@ -32,4 +34,4 @@ def run_game():
 
 if __name__ == "__main__":
     main()
-    run_game()
+    #run_game()
