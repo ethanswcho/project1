@@ -33,9 +33,7 @@ class MAKESTATEMENT(Node):
         self.block = Block(block_type, block_x, block_y, block_width, block_height)
 
     def evaluate(self):
-        return f"""    {self.block_name} = window.make_block()
-    window.set_block_position({self.block_name}, [{self.block.x}, {self.block.y}])
-        """
+        return f"    {self.block_name} = window.make_block([{self.block.x}, {self.block.y}])"
 
         
 

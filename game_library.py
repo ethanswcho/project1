@@ -407,17 +407,3 @@ class MyGame(arcade.Window):
             elif block.boundary_bottom is not None:
                 if (block.center_y - GRID_PIXEL_SIZE / 2 <= block.boundary_bottom):
                     block.stop()
-
-
-def main():
-    """ Main method """
-    window = MyGame(width=12, height=8)
-    """
-    customizating methods (ex. block creation) come here
-    """
-    window.setup()
-    arcade.run()
-
-
-if __name__ == "__main__":
-    main()
