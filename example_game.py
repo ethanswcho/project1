@@ -277,11 +277,11 @@ class MyGame(arcade.Window):
     # Check all blocks in self.block_list and halt its movement if it has reached its boudary
     def check_movement(self):
         for block in self.block_list:
-            if (block.boundary_right is not None):
+            if block.boundary_right is not None:
                 if (block.center_x + GRID_PIXEL_SIZE / 2 >= block.boundary_right):
                     block.stop()
 
-            if (block.boundary_left is not None):
+            if block.boundary_left is not None:
                 if (block.center_x - GRID_PIXEL_SIZE / 2 <= block.boundary_left):
                     block.stop()
 
