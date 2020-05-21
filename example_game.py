@@ -16,8 +16,8 @@ ARENA_WIDTH = 12
 ARENA_HEIGHT = 8
 
 # Represents the dimensions of the arena in pixels
-SCREEN_WIDTH = ARENA_WIDTH * GRID_PIXEL_SIZE
-SCREEN_HEIGHT = ARENA_HEIGHT * GRID_PIXEL_SIZE
+DEFAULT_SCREEN_WIDTH = ARENA_WIDTH * GRID_PIXEL_SIZE
+DEFAULT_SCREEN_HEIGHT = ARENA_HEIGHT * GRID_PIXEL_SIZE
 
 SCREEN_TITLE = "CPSC 410 - Project 1"
 
@@ -30,11 +30,22 @@ PLAYER_JUMP_SPEED = 14
 class MyGame(arcade.Window):
     """
     Main application class.
+        Optional inputs: "width", "height"
+        "width": Arena width
+        "height": Arena height
     """
 
-    def __init__(self):
+    # Initializes first screen 
+    def __init__(self, **args):
 
         # Call the parent class and set up the window
+        SCREEN_WIDTH = DEFAULT_SCREEN_WIDTH
+        SCREEN_HEIGHT = DEFAULT_SCREEN_HEIGHT
+        if "width" in args:
+            SCREEN_WIDTH = args["width"]
+        if "height" in args:
+            SCREEN_HEIGHT = args["height"]
+
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
         # These are 'lists' that keep track of our sprites. Each sprite should
@@ -219,6 +230,7 @@ class MyGame(arcade.Window):
     def grid_point_to_pixels(self, point):
         return point * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
 
+    # Convert [x, y] in pixels to [x, y] in grid coordinates
     def pixels_to_grid_coord(self, pixels):
         """
         parameters
@@ -228,10 +240,10 @@ class MyGame(arcade.Window):
         """
 
         grid_coord = [0,0]
-        grid_postion[0] = self.pixels_to_grid_point(grid_coord[0])
-        grid_position[1] = self.pixels_to_grid_point(grid_coord[1])
+        grid_coord[0] = self.pixels_to_grid_point(grid_coord[0])
+        grid_coord[1] = self.pixels_to_grid_point(grid_coord[1])
     
-    def grid_point_to_pixels(self, pixels):
+    def pixels_to_grid_point(self, pixels):
         return pixels/SPRITE_PIXEL_SIZE*TILE_SCALING
 
     # Add blocks to the block_list
@@ -303,9 +315,10 @@ class MyGame(arcade.Window):
 
 def main():
     """ Main method """
-    window = MyGame()
-
-
+    window = MyGame(width=12, height=8)
+    """
+    customizating methods (ex. block creation) come here
+    """
     window.setup()
     arcade.run()
 

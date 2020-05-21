@@ -1,8 +1,8 @@
 # Constants
 BLOCK = "block"
 GOAL = "goal"
-DEFAULT_BLOCK_WIDTH = 10
-DEFAULT_BLOCK_HEIGHT = 10
+DEFAULT_BLOCK_WIDTH = 1
+DEFAULT_BLOCK_HEIGHT = 1
 
 
 class Block:
