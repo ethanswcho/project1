@@ -91,11 +91,10 @@ class MyGame(arcade.Window):
         #                          [7, 1]]
 
         # TODO: test code, remove from final code
-        # block1 = self.make_block()
-        # block2 = self.make_block()
-        # self.set_block_position(block1, [5, 1])
-        # self.set_block_position(block2, [6, 2])
-        # self.set_block_right_movement(block2, 2, 3)
+        block1 = self.make_block([3, 3])
+        block2 = self.make_block([6, 2])
+        self.set_block_up_movement(block1, 2, 4)
+        self.set_block_right_movement(block2, 2, 3)
         # self.set_block_left_movement(block1, 2, 3)
 
         # Create the 'physics engine'
@@ -172,8 +171,10 @@ class MyGame(arcade.Window):
     def create_edge_boundary(self):
         # Creates the boundary walls
         for y in range(0, ARENA_HEIGHT):
-            side_l = arcade.Sprite(":resources:images/tiles/stoneCenter_rounded.png", TILE_SCALING)
-            side_r = arcade.Sprite(":resources:images/tiles/stoneCenter_rounded.png", TILE_SCALING)
+            side_l = arcade.Sprite(
+                ":resources:images/tiles/stoneCenter_rounded.png", TILE_SCALING)
+            side_r = arcade.Sprite(
+                ":resources:images/tiles/stoneCenter_rounded.png", TILE_SCALING)
             grid_position_l = self.grid_coord_to_pixels([-1, y])
             grid_position_r = self.grid_coord_to_pixels([ARENA_WIDTH, y])
             side_l.position = grid_position_l
@@ -263,11 +264,12 @@ class MyGame(arcade.Window):
             self.block_list.append(block)
 
     # Creates a block and sets its position to coordinate
-    def make_block(self):
+    def make_block(self, coordinate):
         block = arcade.Sprite(
             ":resources:images/tiles/grassMid.png", TILE_SCALING)
         self.wall_list.append(block)
         self.block_list.append(block)
+        self.set_block_position(block, coordinate)
         return block
 
     # Sets a block's position in tile position
@@ -289,9 +291,11 @@ class MyGame(arcade.Window):
         """
         assert(speed > 0)
         block.boundary_left = None
+        block.boundary_bottom = None
+        block.boundary_top = None
         block.boundary_right = block.position[0] + \
             (displacement * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
-        block._set_change_x(speed * TILE_SCALING)
+        block.change_x = speed * TILE_SCALING
 
     # Moves a block to the right by displacement number of tiles at speed
     def set_block_left_movement(self, block, displacement, speed):
@@ -307,19 +311,69 @@ class MyGame(arcade.Window):
         """
         assert(speed > 0)
         block.boundary_right = None
+        block.boundary_bottom = None
+        block.boundary_top = None
         block.boundary_left = block.position[0] - \
-            (displacement * GRID_PIXEL_SIZE) - + (GRID_PIXEL_SIZE / 2)
-        block._set_change_x(-speed * TILE_SCALING)
+            (displacement * GRID_PIXEL_SIZE) - (GRID_PIXEL_SIZE / 2)
+        block.change_x = -speed * TILE_SCALING
+
+    # Moves a block to the up by displacement number of tiles at speed
+    def set_block_up_movement(self, block, displacement, speed):
+        """ 
+        Parameters
+        ----------
+        block : arcade.Sprite
+            The block to move
+        displacement : int
+            Number of tiles to move upwards
+        speed : int
+            Speed at which the block moves. Must be positive.
+        """
+        assert(speed > 0)
+        block.boundary_bottom = None
+        block.boundary_left = None
+        block.boundary_right = None
+        block.boundary_top = block.position[1] + \
+            (displacement * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
+        block.change_y = speed * TILE_SCALING
+
+    # Moves a block to the up by displacement number of tiles at speed
+    def set_block_down_movement(self, block, displacement, speed):
+        """ 
+        Parameters
+        ----------
+        block : arcade.Sprite
+            The block to move
+        displacement : int
+            Number of tiles to move downwards
+        speed : int
+            Speed at which the block moves. Must be positive.
+        """
+        assert(speed > 0)
+        block.boundary_top = None
+        block.boundary_left = None
+        block.boundary_right = None
+        block.boundary_bottom = block.position[1] - \
+            (displacement * GRID_PIXEL_SIZE) + (GRID_PIXEL_SIZE / 2)
+        block.change_y = -speed * TILE_SCALING
 
     # Check all blocks in self.block_list and halt its movement if it has reached its boudary
     def check_movement(self):
         for block in self.block_list:
-            if (block.boundary_right is not None):
+            if block.boundary_right is not None:
                 if (block.center_x + GRID_PIXEL_SIZE / 2 >= block.boundary_right):
                     block.stop()
 
-            if (block.boundary_left is not None):
+            elif block.boundary_left is not None:
                 if (block.center_x - GRID_PIXEL_SIZE / 2 <= block.boundary_left):
+                    block.stop()
+
+            elif block.boundary_top is not None:
+                if (block.center_y + GRID_PIXEL_SIZE / 2 >= block.boundary_top):
+                    block.stop()
+
+            elif block.boundary_bottom is not None:
+                if (block.center_y - GRID_PIXEL_SIZE / 2 <= block.boundary_bottom):
                     block.stop()
 
 
