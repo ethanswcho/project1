@@ -4,8 +4,6 @@ output: game.py
 """
 
 import os
-
-from game_helpers import make_block
 from astNodes.PROGRAM import PROGRAM
 from .get_game_code import get_game_code
 
@@ -31,11 +29,10 @@ def generate_game(program: PROGRAM):
     #build_gamefile(main)
 
     # Check if gamefile exists first. If it does, delete it.
-    if (os.path.exists(game_dir)):
+    if os.path.exists(game_dir):
         print("YES!")
         os.remove(game_dir)
 
     # Initialize gamefile in specified directory above, and write base game
-    game_file = open(game_dir, "w")
-    game_file.write(get_game_code(initialize_game, formatted_code))  
-    game_file.close()
+    with open(game_dir, "w") as game_file:
+        game_file.write(get_game_code(initialize_game, formatted_code))

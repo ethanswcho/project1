@@ -1,6 +1,6 @@
 from astNodes.STATEMENT import STATEMENT
 from astNodes.WAITSTATEMENT import WAITSTATEMENT
-from libs.Node import Node
+from libs.node import Node
 
 
 class LOOPSTATEMENT(Node):

@@ -2,8 +2,7 @@
 Main method of the program
 """
 from astNodes.PROGRAM import PROGRAM
-from libs.Tokenizer import Tokenizer
-from validate import validate
+from libs.tokenizer import Tokenizer
 from game_generator.generate_game import generate_game
 
 

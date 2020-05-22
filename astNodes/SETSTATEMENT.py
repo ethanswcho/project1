@@ -1,6 +1,6 @@
 from astNodes.COLOUR import COLOUR
 from astNodes.FIELD import FIELD
-from libs.Node import Node
+from libs.node import Node
 
 
 class SETSTATEMENT(Node):

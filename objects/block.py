@@ -21,4 +21,3 @@ class Block:
             self.height = block_height
         else:
             self.height = DEFAULT_BLOCK_HEIGHT
-
