@@ -1,4 +1,4 @@
-from libs.Node import Node
+from libs.node import Node
 import re
 
 

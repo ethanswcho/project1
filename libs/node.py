@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from libs.Tokenizer import Tokenizer
+from libs.tokenizer import Tokenizer
 
 
 class Node(ABC):

@@ -1,4 +1,4 @@
-from libs.Node import Node
+from libs.node import Node
 
 # Constants
 DEFAULT_WIDTH = 8
@@ -23,4 +23,6 @@ class ARENA(Node):
         self.height = int(self.tokenizer.get_next())
 
     def evaluate(self):
-        return "    window = MyGame(width={}, height={}, title=\"{}\")".format(self.width, self.height, self.title)
+        return "window = MyGame(setup_func=user_setup, width={}, height={}, title=\"{}\")".format(self.width,
+                                                                                                  self.height,
+                                                                                                  self.title)

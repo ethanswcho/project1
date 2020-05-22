@@ -2,7 +2,7 @@ from astNodes.CHANGESTATEMENT import CHANGESTATEMENT
 from astNodes.MOVESTATEMENT import MOVESTATEMENT
 from astNodes.REMOVESTATEMENT import REMOVESTATEMENT
 from astNodes.SETSTATEMENT import SETSTATEMENT
-from libs.Node import Node
+from libs.node import Node
 
 # Constants
 REMOVE = "remove"

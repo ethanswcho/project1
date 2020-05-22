@@ -1,5 +1,5 @@
-from libs.Node import Node
-from objects.Block import DEFAULT_BLOCK_WIDTH, DEFAULT_BLOCK_HEIGHT, Block
+from libs.node import Node
+from objects.block import DEFAULT_BLOCK_WIDTH, DEFAULT_BLOCK_HEIGHT, Block
 
 
 class MAKESTATEMENT(Node):
@@ -34,8 +34,3 @@ class MAKESTATEMENT(Node):
 
     def evaluate(self):
         return f"    {self.block_name} = window.make_block([{self.block.x}, {self.block.y}])"
-
-        
-
-        
-        

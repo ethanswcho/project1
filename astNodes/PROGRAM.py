@@ -2,7 +2,7 @@ from astNodes.ARENA import ARENA
 from astNodes.LOOPSTATEMENT import LOOPSTATEMENT
 from astNodes.MAKESTATEMENT import MAKESTATEMENT
 from astNodes.MODIFYSTATEMENT import MODIFYSTATEMENT
-from libs.Node import Node
+from libs.node import Node
 
 
 class PROGRAM(Node):
