@@ -1,5 +1,5 @@
 from libs.node import Node
-from objects.block import DEFAULT_BLOCK_WIDTH, DEFAULT_BLOCK_HEIGHT, Block
+from objects.block import DEFAULT_BLOCK_WIDTH, DEFAULT_BLOCK_HEIGHT, Block, GOAL
 
 
 class MAKESTATEMENT(Node):
@@ -33,4 +33,6 @@ class MAKESTATEMENT(Node):
         self.block = Block(block_type, block_x, block_y, block_width, block_height)
 
     def evaluate(self):
-        return f"    {self.block_name} = window.make_block([{self.block.x}, {self.block.y}])"
+        return ''.join((f"    {self.block_name} = MutableBlock(",
+                        f"window, ({self.block.x}, {self.block.y})",
+                        f"{', is_goal=True' if self.block.type == GOAL else ''})"))

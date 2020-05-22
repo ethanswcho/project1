@@ -1,4 +1,6 @@
 arena size 12, 12
+make a goal called g1 at 11, 1
+make a goal called g2 at 1, 4
 make a block called b2 at 2, 2
 make a block called b3 at 3, 3
 make a block called b4 at 4, 4

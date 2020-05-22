@@ -6,6 +6,7 @@ Since the base game is quite long, use this to get it.
 def get_game_code(initialize_game: str, formatted_code: str):
     
     return """from game_library import MyGame
+from objects.mutable_block import MutableBlock
 import arcade
 
 
