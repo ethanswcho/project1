@@ -1,0 +1,17 @@
+User #2: UBC Electrical Engineering Graduate
+
+Was shown a revised snippet of example code (from User #1)
+
+Differences of the snippet from first user study:
+- Initialized a block called "ground" that covers the entire bottom of the arena 
+     - Initialized at 0, 0
+- Initialized the position of the player
+
+
+I explained to Darren that this program is to make a simple Mario-like platformer game. I told Darren to just read the example snippet, go through it, explain what it does, and then make his own game. He was able to easily make a difficult platformer with moving platforms that move towards and way from each other without much guidance at all.
+
+The additions to the sample snippet of code gave him the ability to intuitively figure these things on their own:
+- 0, 0 is the bottom left corner of the coordinate system
+- The player's start position can be placed in a custom location
+
+Overall feedback was that it was quite intuitive and easy to use.

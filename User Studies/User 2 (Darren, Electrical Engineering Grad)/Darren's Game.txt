@@ -1,0 +1,53 @@
+arena size 650, 1000
+make a block called ground with size 650, 50 at 0, 0
+make a block called b1 with size 10, 10 at 100, 100
+make a block called b2 at 200, 200
+make a goal called b3 at 1000, 51
+set xpos of player to 0
+set ypos of player to 51
+set colour of b3 to #ffffff
+do every 100 ms:
+    change width of b1 by 30
+    wait 50 ms
+    change width of b1 by -30
+end loop
+do every 100 ms:
+    move b2 right by 50
+    wait 50 ms
+    move b2 left by 50
+end loop
+do every 4000 ms:
+    make a block called b4 at 400, 400
+    wait 1000 ms
+    set xpos of b4 to 500
+    set ypos of b4 to 450
+    wait 1000 ms
+    destroy b4
+end loop
+
+arena size 1000, 1000
+make a block called startPoint with size 100, 100 at 0, 0
+make a block called b0 with size 10, 10 at 290, 0
+make a block called b1 with size 10, 10 at 300, 10
+make a block called b2 with size 10, 10 at 400, 0
+make a block called b3 with size 10, 10 at 450, 10
+make a block called endPoint with size 100, 100 at 500,0
+make a goal called goalFlag at 650,0
+set xpos of player to 0
+set ypos of player to 51
+set colour of goalFlag to #ffffff
+do every 100 ms:
+	move b0 left by 50
+	wait 50 ms
+	move b0 right by 50
+end loop
+do every 100 ms:
+	move b1 right by 50
+	wait 50 ms
+	move b1 left by 50
+end loop
+do every 3000 ms:
+	destroy endpoint
+	wait 2000 ms
+	make a block called endPoint with size 100, 100 at 600,0
+end loop
