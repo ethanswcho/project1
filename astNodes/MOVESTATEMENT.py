@@ -16,6 +16,7 @@ class MOVESTATEMENT(Node):
         self.tokenizer.get_and_check_next("by")
         self.value = int(self.tokenizer.get_next())
 
-    def evaluate(self):
-        # TODO
-        pass
+    def evaluate(self, wait):
+        return "".join((f"        pyglet.clock.schedule_once(",
+                        f"self.{self.block_name}.set_block_{self.direction}_movement, ",
+                        f"{wait}, {self.value}, 10)"))

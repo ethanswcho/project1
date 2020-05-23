@@ -11,5 +11,5 @@ class REMOVESTATEMENT(Node):
         self.tokenizer.get_and_check_next("destroy")
         self.block_name = self.tokenizer.get_next()
 
-    def evaluate(self):
+    def evaluate(self, wait=None):
         pass

@@ -32,7 +32,12 @@ class MAKESTATEMENT(Node):
 
         self.block = Block(block_type, block_x, block_y, block_width, block_height)
 
-    def evaluate(self):
-        return ''.join((f"    {self.block_name} = MutableBlock(",
-                        f"window, ({self.block.x}, {self.block.y})",
-                        f"{', is_goal=True' if self.block.type == GOAL else ''})"))
+    def evaluate(self, wait=None):
+        if wait is not None:
+            return ''.join((f"        pyglet.clock.schedule_once(lambda dt: setattr(",
+                            f"self.window, '{self.block_name}', MutableBlock(",
+                            f"self.window, ({self.block.x}, {self.block.y}))), {wait})"))
+        else:
+            return ''.join((f"        self.{self.block_name} = MutableBlock(",
+                            f"self.window, ({self.block.x}, {self.block.y})",
+                            f"{', is_goal=True' if self.block.type == GOAL else ''})"))

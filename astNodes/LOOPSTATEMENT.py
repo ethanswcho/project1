@@ -26,6 +26,13 @@ class LOOPSTATEMENT(Node):
 
         self.tokenizer.get_and_check_next("end loop")
 
-    def evaluate(self):
-        # TODO
-        pass
+    def evaluate(self, counter):
+        wait = 0
+        loop_code = f"\n\
+    def loop{counter}(self, dt):\n"
+        for s in self.statements:
+            if isinstance(s, WAITSTATEMENT):
+                wait += s.ms/1000
+            else:
+                loop_code = loop_code + s.evaluate(wait) + "\n"
+        return loop_code, f"self.loop{counter}", self.ms/1000

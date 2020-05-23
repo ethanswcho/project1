@@ -2,6 +2,7 @@
 Platformer Game
 """
 import arcade
+import pyglet
 import game_helpers.pixel_calculator as pcalc
 from objects.mutable_block import MutableBlock
 
@@ -34,7 +35,8 @@ class MyGame(arcade.Window):
     """
     # Initializes first screen 
     def __init__(self, **args):
-        self.setup_func = args["setup_func"]
+        self.setup_func = None
+        self.destroy_func = None
         self.screen_width = DEFAULT_SCREEN_WIDTH
         self.screen_height = DEFAULT_SCREEN_HEIGHT
         self.title = DEFAULT_SCREEN_TITLE
@@ -101,13 +103,16 @@ class MyGame(arcade.Window):
         # TODO: test code, remove from final code
         block1 = MutableBlock(self, (3, 3))
         block2 = MutableBlock(self, (6, 2))
-        block1.set_block_up_movement(2, 4)
-        block2.set_block_right_movement(2, 3)
+        block1.set_block_up_movement(0, 2, 4)
+        block2.set_block_right_movement(0, 2, 3)
 
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.wall_list, GRAVITY)
-        self.setup_func(self)
+        self.setup_func()
+
+    def set_field(self, field, value):
+        setattr(self, field, value)
 
     def on_draw(self):
         """ Render the screen. """
@@ -199,6 +204,7 @@ class MyGame(arcade.Window):
 
     def end_game(self):
         self.game_over = True
+        self.destroy_func()
 
     def draw_game_over(self):
         win_message = "NOICE"
