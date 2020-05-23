@@ -4,9 +4,10 @@ import game_helpers.pixel_calculator as pcalc
 
 class MutableBlock(arcade.Sprite):
 
-    def __init__(self, window: arcade.Window, coordinates: tuple, is_goal: bool = False):
+    def __init__(self, window: arcade.Window, name: str, coordinates: tuple, is_goal: bool = False):
         self.window = window
         self.flag = None
+        self.name = name
         super().__init__(":resources:images/tiles/grassMid.png", pcalc.TILE_SCALING)
         window.wall_list.append(self)
         window.block_list.append(self)

@@ -27,5 +27,5 @@ class LOOPSTATEMENT(Node):
         self.tokenizer.get_and_check_next("end loop")
 
     def evaluate(self):
-        # TODO
+        #return "    arcade.schedule()"
         pass

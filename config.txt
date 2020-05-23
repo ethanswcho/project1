@@ -3,10 +3,6 @@ make a block called b1 with size 10, 10 at 100, 100
 make a block called b2 at 200, 200
 make a goal called b3 at 300, 300
 set colour of b3 to #ffffff
-do every 100 ms:
-    change width of b1 by 30
-    wait 50 ms
-    change width of b1 by -30
 end loop
 do every 100 ms:
     move b2 right by 50

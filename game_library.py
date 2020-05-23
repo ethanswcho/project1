@@ -99,8 +99,8 @@ class MyGame(arcade.Window):
         self.create_edge_boundary()
 
         # TODO: test code, remove from final code
-        block1 = MutableBlock(self, (3, 3))
-        block2 = MutableBlock(self, (6, 2))
+        block1 = MutableBlock(self, "test1", (3, 3))
+        block2 = MutableBlock(self, "test2", (6, 2))
         block1.set_block_up_movement(2, 4)
         block2.set_block_right_movement(2, 3)
 
@@ -250,3 +250,8 @@ class MyGame(arcade.Window):
             elif block.boundary_bottom is not None:
                 if block.center_y - pcalc.GRID_PIXEL_SIZE / 2 <= block.boundary_bottom:
                     block.stop()
+
+    def get_block(self, block_name):
+        for block in self.block_list:
+            if block.name == block_name:
+                return block
