@@ -19,7 +19,7 @@ class UserGame:
         self.b6 = MutableBlock(self.window, (6, 6))
         self.b7 = MutableBlock(self.window, (7, 7))
         arcade.schedule(self.loop0, 4.0)
-        arcade.schedule(self.loop1, 4.0)
+        arcade.schedule(self.loop1, 1.0)
 
     def loop0(self, dt):
         pyglet.clock.schedule_once(self.b5.set_block_right_movement, 0, 2, 10)
@@ -29,9 +29,7 @@ class UserGame:
 
 
     def loop1(self, dt):
-        pyglet.clock.schedule_once(lambda dt: setattr(self, 'b8', MutableBlock(self.window, (4, 7))), 0)
-        # TODO: Fix this
-        # pyglet.clock.schedule_once(self.window.b8.remove, 2)
+        pyglet.clock.schedule_once(lambda dt: setattr(self.window, 'b8', MutableBlock(self.window, (4, 7))), 0)
 
     def destroy(self):
         pyglet.clock.unschedule(self.loop0)

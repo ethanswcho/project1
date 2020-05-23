@@ -30,7 +30,7 @@ def main():
 def run_game():
     import game
     print("Running generated game...")
-    # game.main()
+    game.main()
 
 if __name__ == "__main__":
     main()
