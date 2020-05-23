@@ -31,9 +31,6 @@ class MutableBlock(arcade.Sprite):
         grid_position = pcalc.grid_coord_to_pixels(coordinates)
         self.position = grid_position
 
-    def remove(self, dt):
-        self.kill()
-
     def set_block_right_movement(self, dt, displacement, speed):
         """
         Moves a block to the right by displacement number of tiles at speed

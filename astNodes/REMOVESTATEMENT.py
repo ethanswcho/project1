@@ -12,4 +12,7 @@ class REMOVESTATEMENT(Node):
         self.block_name = self.tokenizer.get_next()
 
     def evaluate(self, wait=None):
-        pass
+        if wait is not None:
+            return f"        pyglet.clock.schedule_once(lambda dt: self.{self.block_name}.kill(), {wait})"
+        else:
+            return f"        self.{self.block_name}.kill()"
