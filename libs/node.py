@@ -12,5 +12,5 @@ class Node(ABC):
         pass
 
     @abstractmethod
-    def evaluate(self):
+    def evaluate(self, *args):
         pass

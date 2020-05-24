@@ -7,3 +7,17 @@ make a block called b4 at 4, 4
 make a block called b5 at 5, 5
 make a block called b6 at 6, 6
 make a block called b7 at 7, 7
+do every 4000 ms:
+    move b5 right by 2
+    wait 1000 ms
+    move b5 up by 2
+    wait 1000 ms
+    move b5 left by 2
+    wait 1000 ms
+    move b5 down by 2
+end loop
+do every 2000 ms:
+    make a block called b8 at 4, 7
+    wait 1000 ms
+    destroy b8
+end loop

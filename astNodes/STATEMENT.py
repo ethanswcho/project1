@@ -25,5 +25,5 @@ class STATEMENT(Node):
             self.statement = s.statement
             self.type = s.type
 
-    def evaluate(self):
-        self.statement.evaluate()
+    def evaluate(self, args):
+        return self.statement.evaluate(args)
