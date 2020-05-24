@@ -37,9 +37,9 @@ class UserGame:
 
 
     def loop2(self, dt):
-        pyglet.clock.schedule_once(self.b4.set_block_colour, 0, ALICE_BLUE)
-        pyglet.clock.schedule_once(self.b4.set_block_colour, 1.0, ANTIQUE_WHITE)
-        pyglet.clock.schedule_once(self.b4.set_block_colour, 2.0, AQUA)
+        pyglet.clock.schedule_once(self.b4.set_block_colour, 0, arcade.csscolor.ALICE_BLUE)
+        pyglet.clock.schedule_once(self.b4.set_block_colour, 1.0, arcade.csscolor.ANTIQUE_WHITE)
+        pyglet.clock.schedule_once(self.b4.set_block_colour, 2.0, arcade.csscolor.AQUA)
 
     def destroy(self):
         pyglet.clock.unschedule(self.loop0)

@@ -31,6 +31,10 @@ class SETSTATEMENT(Node):
             self.value = self.tokenizer.get_next()
 
     def evaluate(self, wait):
+        if self.field.field == "colour":
+            value = f"arcade.csscolor.{self.value}"
+        else:
+            value = self.value
         return "".join((f"        pyglet.clock.schedule_once(",
                         f"self.{self.block_name}.set_block_{self.field.field}, ",
-                        f"{wait}, {self.value})"))
+                        f"{wait}, {value})"))
