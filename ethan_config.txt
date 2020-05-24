@@ -25,3 +25,11 @@ do every 6000 ms:
     wait 1000 ms
     change ypos of b5 by -2
 end loop
+do every 3000 ms:
+    set colour of b4 to ALICE_BLUE
+    wait 1000 ms
+    set colour of b4 to ANTIQUE_WHITE
+    wait 1000 ms
+    set colour of b4 to AQUA
+    wait 1000 ms
+end loop

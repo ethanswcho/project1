@@ -67,6 +67,10 @@ class MutableBlock(arcade.Sprite):
         else:
             ypos = self.position[1] + pcalc.negative_grid_point_to_pixels(amount)
         self.position = [self.position[0], ypos]
+    
+    def set_block_colour(self, dt, colour):
+        colour = f"arcade.csscolor.{colour}"
+        self.color = colour
 
 
     def set_block_right_movement(self, dt, displacement, speed):

@@ -20,6 +20,7 @@ class UserGame:
         self.b7 = MutableBlock(self.window, (7, 7))
         arcade.schedule(self.loop0, 2.0)
         arcade.schedule(self.loop1, 6.0)
+        arcade.schedule(self.loop2, 3.0)
 
     def loop0(self, dt):
         pyglet.clock.schedule_once(lambda dt: setattr(self, 'b8', MutableBlock(self.window, (4, 7))), 0)
@@ -34,9 +35,16 @@ class UserGame:
         pyglet.clock.schedule_once(self.b5.change_block_ypos, 4.0, 2)
         pyglet.clock.schedule_once(self.b5.change_block_ypos, 5.0, -2)
 
+
+    def loop2(self, dt):
+        pyglet.clock.schedule_once(self.b4.set_block_colour, 0, ALICE_BLUE)
+        pyglet.clock.schedule_once(self.b4.set_block_colour, 1.0, ANTIQUE_WHITE)
+        pyglet.clock.schedule_once(self.b4.set_block_colour, 2.0, AQUA)
+
     def destroy(self):
         pyglet.clock.unschedule(self.loop0)
         pyglet.clock.unschedule(self.loop1)
+        pyglet.clock.unschedule(self.loop2)
 
 
 def main():
