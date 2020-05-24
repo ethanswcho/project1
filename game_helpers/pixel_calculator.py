@@ -23,3 +23,10 @@ def grid_point_to_pixels(point):
     Change a single point from tile to pixels
     """
     return point * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+
+
+def negative_grid_point_to_pixels(point):
+    """
+    Change a single negative point from tile to pixels
+    """
+    return point * GRID_PIXEL_SIZE - (GRID_PIXEL_SIZE / 2)

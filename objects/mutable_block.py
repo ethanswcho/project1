@@ -52,13 +52,21 @@ class MutableBlock(arcade.Sprite):
         """
         Changes a block's xpos in tile position by given amount
         """
-        self.position = [self.position[0] + pcalc.grid_point_to_pixels(amount), self.position[1]]
+        if amount >= 0:
+            xpos = self.position[0] + pcalc.grid_point_to_pixels(amount)
+        else:
+            xpos = self.position[0] + pcalc.negative_grid_point_to_pixels(amount)
+        self.position = [xpos, self.position[1]]
     
     def change_block_ypos(self, dt, amount):
         """
         Changes a block's ypos in tile position by given amount
         """
-        self.position = [self.position[0], self.position[1] + pcalc.grid_point_to_pixels(amount)]
+        if amount >= 0:
+            ypos = self.position[1] + pcalc.grid_point_to_pixels(amount)
+        else:
+            ypos = self.position[1] + pcalc.negative_grid_point_to_pixels(amount)
+        self.position = [self.position[0], ypos]
 
 
     def set_block_right_movement(self, dt, displacement, speed):
