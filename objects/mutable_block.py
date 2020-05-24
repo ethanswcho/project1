@@ -1,6 +1,11 @@
 import arcade
 import game_helpers.pixel_calculator as pcalc
 
+# Constants for the flag sprite
+FLAG_SPRITE_SCALING = 0.4
+FLAG_RIGHT_SHIFT = 6
+FLAG_DOWN_SHIFT = 10
+
 
 class MutableBlock(arcade.Sprite):
 
@@ -18,9 +23,9 @@ class MutableBlock(arcade.Sprite):
         # Set block as the goal block. Spawns a flag on top of the block.
         self.color = arcade.csscolor.AQUA
         flag = arcade.Sprite(
-            ":resources:images/items/flagRed1.png", pcalc.TILE_SCALING)
-        flag.position = [self.position[0],
-                         self.position[1] + pcalc.GRID_PIXEL_SIZE]
+            ":resources:images/items/flagRed1.png", FLAG_SPRITE_SCALING)
+        flag.position = [self.position[0] + FLAG_RIGHT_SHIFT,
+                         self.position[1] + pcalc.GRID_PIXEL_SIZE - FLAG_DOWN_SHIFT]
         self.flag = flag
         self.window.goal_list.append(flag)
 
@@ -33,7 +38,8 @@ class MutableBlock(arcade.Sprite):
 
     def set_block_right_movement(self, dt, displacement, speed):
         """
-        Moves a block to the right by displacement number of tiles at speed
+        Moves a block to the right by displacement number of tiles at speed. 
+        If the block is a goal_block, also set the flag's movement.
 
         Parameters
         ----------
@@ -46,14 +52,22 @@ class MutableBlock(arcade.Sprite):
         self.boundary_left = None
         self.boundary_bottom = None
         self.boundary_top = None
-        self.boundary_right = self.position[0] + pcalc.calculate_tile_to_pixel_displacement(displacement)
+        self.boundary_right = self.position[0] + \
+            pcalc.calculate_tile_to_pixel_displacement(displacement)
         self.change_x = speed * pcalc.TILE_SCALING
-        # TODO: Move the flag as well
-        # self.window.goal_list.sprite_list[self.window.goal_list.sprite_list.index(self.flag)].change_x = speed * pcalc.TILE_SCALING
+
+        if self.flag is not None:
+            self.flag.boundary_left = None
+            self.flag.boundary_bottom = None
+            self.flag.boundary_top = None
+            self.flag.boundary_right = self.flag.position[0] + \
+                pcalc.calculate_tile_to_pixel_displacement(displacement)
+            self.flag.change_x = speed * pcalc.TILE_SCALING
 
     def set_block_left_movement(self, dt, displacement, speed):
         """
-        Moves a block to the left by displacement number of tiles at speed
+        Moves a block to the left by displacement number of tiles at speed.
+        If the block is a goal_block, also set the flag's movement.
 
         Parameters
         ----------
@@ -66,12 +80,22 @@ class MutableBlock(arcade.Sprite):
         self.boundary_right = None
         self.boundary_bottom = None
         self.boundary_top = None
-        self.boundary_left = self.position[0] - pcalc.calculate_tile_to_pixel_displacement(displacement)
+        self.boundary_left = self.position[0] - \
+            pcalc.calculate_tile_to_pixel_displacement(displacement)
         self.change_x = -speed * pcalc.TILE_SCALING
+
+        if self.flag is not None:
+            self.flag.boundary_right = None
+            self.flag.boundary_bottom = None
+            self.flag.boundary_top = None
+            self.flag.boundary_left = self.flag.position[0] - \
+                pcalc.calculate_tile_to_pixel_displacement(displacement)
+            self.flag.change_x = -speed * pcalc.TILE_SCALING
 
     def set_block_up_movement(self, dt, displacement, speed):
         """
-        Moves a block to the up by displacement number of tiles at speed
+        Moves a block to the up by displacement number of tiles at speed.
+        If the block is a goal_block, also set the flag's movement.
 
         Parameters
         ----------
@@ -84,12 +108,23 @@ class MutableBlock(arcade.Sprite):
         self.boundary_bottom = None
         self.boundary_left = None
         self.boundary_right = None
-        self.boundary_top = self.position[1] + pcalc.calculate_tile_to_pixel_displacement(displacement)
+        self.boundary_top = self.position[1] + \
+            pcalc.calculate_tile_to_pixel_displacement(displacement)
         self.change_y = speed * pcalc.TILE_SCALING
+
+        if self.flag is not None:
+            self.flag.boundary_bottom = None
+            self.flag.boundary_left = None
+            self.flag.boundary_right = None
+            self.flag.boundary_top = self.flag.position[1] + \
+                pcalc.calculate_tile_to_pixel_displacement(displacement)
+            self.flag.change_y = speed * pcalc.TILE_SCALING
 
     def set_block_down_movement(self, dt, displacement, speed):
         """
-        Moves a block to the up by displacement number of tiles at speed
+        Moves a block to the up by displacement number of tiles at speed.
+        If the block is a goal_block, also set the flag's movement.
+
         Parameters
         ----------
         displacement : int
@@ -101,5 +136,14 @@ class MutableBlock(arcade.Sprite):
         self.boundary_top = None
         self.boundary_left = None
         self.boundary_right = None
-        self.boundary_bottom = self.position[1] - pcalc.calculate_tile_to_pixel_displacement(displacement)
+        self.boundary_bottom = self.position[1] - \
+            pcalc.calculate_tile_to_pixel_displacement(displacement)
         self.change_y = -speed * pcalc.TILE_SCALING
+
+        if self.flag is not None:
+            self.flag.boundary_top = None
+            self.flag.boundary_left = None
+            self.flag.boundary_right = None
+            self.flag.boundary_bottom = self.flag.position[1] - \
+                pcalc.calculate_tile_to_pixel_displacement(displacement)
+            self.flag.change_y = -speed * pcalc.TILE_SCALING
