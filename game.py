@@ -1,7 +1,9 @@
 from game_library import MyGame
 from objects.mutable_block import MutableBlock
+from pyglet import clock
 import arcade
-import time
+
+from functools import partial
 
 def user_setup(window):
     MutableBlock(window, "g1", (11, 1), is_goal=True)
@@ -28,7 +30,9 @@ def do_loops():
 def loop1(self):
     print("loop1")
     window.get_block("b2").set_block_up_movement(2, 4)
-    
+    #clock.schedule_once(self.window.get_block("b2").set_block_right_movement(2, 4), 2)
+    clock.sleep(200)
+    window.get_block("b2").set_block_left_movement(2, 3)
 
 def loop2(self):
     print("loop2")

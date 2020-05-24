@@ -63,6 +63,7 @@ class MutableBlock(arcade.Sprite):
         speed : int
             Speed at which the block moves. Must be positive.
         """
+        print("Displacement: {}, Speed: {}".format(displacement, speed))
         assert (speed > 0)
         self.boundary_right = None
         self.boundary_bottom = None
