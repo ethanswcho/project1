@@ -18,21 +18,21 @@ class UserGame:
         self.b5 = MutableBlock(self.window, (5, 5))
         self.b6 = MutableBlock(self.window, (6, 6))
         self.b7 = MutableBlock(self.window, (7, 7))
-        arcade.schedule(self.loop0, 6.0)
-        arcade.schedule(self.loop1, 2.0)
+        arcade.schedule(self.loop0, 2.0)
+        arcade.schedule(self.loop1, 6.0)
 
     def loop0(self, dt):
-        pyglet.clock.schedule_once(self.b5.set_block_xpos, 0, 8)
-        pyglet.clock.schedule_once(self.b5.set_block_ypos, 1.0, 8)
-        pyglet.clock.schedule_once(self.b5.set_block_right_movement, 2.0, 2, 10)
-        pyglet.clock.schedule_once(self.b5.set_block_up_movement, 3.0, 2, 10)
-        pyglet.clock.schedule_once(self.b5.set_block_left_movement, 4.0, 2, 10)
-        pyglet.clock.schedule_once(self.b5.set_block_down_movement, 5.0, 2, 10)
+        pyglet.clock.schedule_once(lambda dt: setattr(self, 'b8', MutableBlock(self.window, (4, 7))), 0)
+        pyglet.clock.schedule_once(lambda dt: self.b8.kill(), 1.0)
 
 
     def loop1(self, dt):
-        pyglet.clock.schedule_once(lambda dt: setattr(self, 'b8', MutableBlock(self.window, (4, 7))), 0)
-        pyglet.clock.schedule_once(lambda dt: self.b8.kill(), 1.0)
+        pyglet.clock.schedule_once(self.b5.set_block_xpos, 0, 8)
+        pyglet.clock.schedule_once(self.b5.set_block_ypos, 1.0, 8)
+        pyglet.clock.schedule_once(self.b5.change_block_xpos, 2.0, 3)
+        pyglet.clock.schedule_once(self.b5.change_block_xpos, 3.0, -3)
+        pyglet.clock.schedule_once(self.b5.change_block_ypos, 4.0, 2)
+        pyglet.clock.schedule_once(self.b5.change_block_ypos, 5.0, -2)
 
     def destroy(self):
         pyglet.clock.unschedule(self.loop0)

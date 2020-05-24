@@ -27,5 +27,5 @@ class CHANGESTATEMENT(Node):
 
     def evaluate(self, wait):
         return "".join((f"        pyglet.clock.schedule_once(",
-                        f"self.{self.block_name}.set_block_position, ",
-                        f"{wait}, {self.value}, 10)"))
+                        f"self.{self.block_name}.change_block_{self.field.field}, ",
+                        f"{wait}, {self.value})"))
