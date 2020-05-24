@@ -33,7 +33,8 @@ class MyGame(arcade.Window):
         "width": Arena width
         "height": Arena height
     """
-    # Initializes first screen 
+    # Initializes first screen
+
     def __init__(self, **args):
         self.setup_func = None
         self.destroy_func = None
@@ -100,15 +101,10 @@ class MyGame(arcade.Window):
         # Create the edge boundary
         self.create_edge_boundary()
 
-        # TODO: test code, remove from final code
-        block1 = MutableBlock(self, (3, 3))
-        block2 = MutableBlock(self, (6, 2))
-        block1.set_block_up_movement(0, 2, 4)
-        block2.set_block_right_movement(0, 2, 3)
-
         # Create the 'physics engine'
         # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite, self.wall_list, GRAVITY)
+        self.physics_engine = arcade.PhysicsEnginePlatformer(
+            self.player_sprite, self.wall_list, GRAVITY)
         self.setup_func()
 
     def set_field(self, field, value):
@@ -120,8 +116,8 @@ class MyGame(arcade.Window):
         arcade.start_render()
 
         # Draw our sprites
-        self.wall_list.draw()
         self.goal_list.draw()
+        self.wall_list.draw()
         self.player_list.draw()
 
         if self.game_over:
@@ -195,10 +191,12 @@ class MyGame(arcade.Window):
     def update(self, delta_time):
         """ Movement and game logic """
         if not self.game_over:
-            # Call update on all sprites (The sprites don't do much in this
-            # example though.)
+            # Call update on all sprites
             self.physics_engine.update()
             self.check_movement()
+            # Update all the goals
+            for goal in self.goal_list:
+                goal.update()
             if self.is_on_goal():
                 self.end_game()
 
@@ -238,21 +236,28 @@ class MyGame(arcade.Window):
 
     def check_movement(self):
         """
-        Check all blocks in self.block_list and halts their movement if they have reached their boundaries
+        Check all blocks in self.block_list and goals in self.goal_list and halts 
+        their movement if they have reached their boundaries.
         """
-        for block in self.block_list:
-            if block.boundary_right is not None:
-                if block.center_x + pcalc.GRID_PIXEL_SIZE / 2 >= block.boundary_right:
-                    block.stop()
 
-            elif block.boundary_left is not None:
-                if block.center_x - pcalc.GRID_PIXEL_SIZE / 2 <= block.boundary_left:
-                    block.stop()
+        # Combine the list of goals and blocks into one list
+        combined_sprite_list = arcade.SpriteList()
+        combined_sprite_list.extend(self.goal_list)
+        combined_sprite_list.extend(self.block_list)
 
-            elif block.boundary_top is not None:
-                if block.center_y + pcalc.GRID_PIXEL_SIZE / 2 >= block.boundary_top:
-                    block.stop()
+        for sprite in combined_sprite_list:
+            if sprite.boundary_right is not None:
+                if sprite.center_x + pcalc.GRID_PIXEL_SIZE / 2 >= sprite.boundary_right:
+                    sprite.stop()
 
-            elif block.boundary_bottom is not None:
-                if block.center_y - pcalc.GRID_PIXEL_SIZE / 2 <= block.boundary_bottom:
-                    block.stop()
+            elif sprite.boundary_left is not None:
+                if sprite.center_x - pcalc.GRID_PIXEL_SIZE / 2 <= sprite.boundary_left:
+                    sprite.stop()
+
+            elif sprite.boundary_top is not None:
+                if sprite.center_y + pcalc.GRID_PIXEL_SIZE / 2 >= sprite.boundary_top:
+                    sprite.stop()
+
+            elif sprite.boundary_bottom is not None:
+                if sprite.center_y - pcalc.GRID_PIXEL_SIZE / 2 <= sprite.boundary_bottom:
+                    sprite.stop()
