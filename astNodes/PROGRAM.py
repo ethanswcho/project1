@@ -18,6 +18,26 @@ class PROGRAM(Node):
         if self.tokenizer.check_token("arena size"):
             self.arena.parse()
 
+        # check for player positions
+        xpos_set = False
+        ypos_set = False
+        i = 0
+        while i < 2:
+            if self.tokenizer.check_token("set") and self.tokenizer.tokens[self.tokenizer.current_token + 3] == "player":
+                if self.tokenizer.tokens[self.tokenizer.current_token + 1] == "xpos":
+                    xpos_set = True
+                elif self.tokenizer.tokens[self.tokenizer.current_token + 1] == "ypos":
+                    ypos_set = True
+                s = MODIFYSTATEMENT()
+                s.parse()
+                self.modify_statements.append(s)
+            else:
+                raise Exception("Please set the default player position in your config file.")
+            i += 1
+
+        if not ypos_set and xpos_set:
+            raise Exception("Please set the default player position in your config file.")
+
         while self.tokenizer.more_tokens():
             if self.tokenizer.check_token("make a"):
                 s = MAKESTATEMENT()
