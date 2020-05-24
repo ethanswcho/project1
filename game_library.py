@@ -239,36 +239,25 @@ class MyGame(arcade.Window):
         Check all blocks in self.block_list and goals in self.goal_list and halts 
         their movement if they have reached their boundaries.
         """
-        for block in self.block_list:
-            if block.boundary_right is not None:
-                if block.center_x + pcalc.GRID_PIXEL_SIZE / 2 >= block.boundary_right:
-                    block.stop()
 
-            elif block.boundary_left is not None:
-                if block.center_x - pcalc.GRID_PIXEL_SIZE / 2 <= block.boundary_left:
-                    block.stop()
+        # Combine the list of goals and blocks into one list
+        combined_sprite_list = arcade.SpriteList()
+        combined_sprite_list.extend(self.goal_list)
+        combined_sprite_list.extend(self.block_list)
 
-            elif block.boundary_top is not None:
-                if block.center_y + pcalc.GRID_PIXEL_SIZE / 2 >= block.boundary_top:
-                    block.stop()
+        for sprite in combined_sprite_list:
+            if sprite.boundary_right is not None:
+                if sprite.center_x + pcalc.GRID_PIXEL_SIZE / 2 >= sprite.boundary_right:
+                    sprite.stop()
 
-            elif block.boundary_bottom is not None:
-                if block.center_y - pcalc.GRID_PIXEL_SIZE / 2 <= block.boundary_bottom:
-                    block.stop()
+            elif sprite.boundary_left is not None:
+                if sprite.center_x - pcalc.GRID_PIXEL_SIZE / 2 <= sprite.boundary_left:
+                    sprite.stop()
 
-        for goal in self.goal_list:
-            if goal.boundary_right is not None:
-                if goal.center_x + pcalc.GRID_PIXEL_SIZE / 2 >= goal.boundary_right:
-                    goal.stop()
+            elif sprite.boundary_top is not None:
+                if sprite.center_y + pcalc.GRID_PIXEL_SIZE / 2 >= sprite.boundary_top:
+                    sprite.stop()
 
-            elif goal.boundary_left is not None:
-                if goal.center_x - pcalc.GRID_PIXEL_SIZE / 2 <= goal.boundary_left:
-                    goal.stop()
-
-            elif goal.boundary_top is not None:
-                if goal.center_y + pcalc.GRID_PIXEL_SIZE / 2 >= goal.boundary_top:
-                    goal.stop()
-
-            elif goal.boundary_bottom is not None:
-                if goal.center_y - pcalc.GRID_PIXEL_SIZE / 2 <= goal.boundary_bottom:
-                    goal.stop()
+            elif sprite.boundary_bottom is not None:
+                if sprite.center_y - pcalc.GRID_PIXEL_SIZE / 2 <= sprite.boundary_bottom:
+                    sprite.stop()
