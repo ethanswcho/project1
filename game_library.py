@@ -167,7 +167,7 @@ class MyGame(arcade.Window):
                 ":resources:images/tiles/stoneCenter_rounded.png", pcalc.TILE_SCALING)
             side_r = arcade.Sprite(
                 ":resources:images/tiles/stoneCenter_rounded.png", pcalc.TILE_SCALING)
-            grid_position_l = pcalc.grid_coord_to_pixels((-1, y))
+            grid_position_l = pcalc.grid_coord_to_pixels((-0.0, y))
             grid_position_r = pcalc.grid_coord_to_pixels((ARENA_WIDTH, y))
             side_l.position = grid_position_l
             side_r.position = grid_position_r
