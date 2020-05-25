@@ -37,5 +37,5 @@ class MODIFYSTATEMENT(Node):
         s.parse()
         self.statement = s
 
-    def evaluate(self):
-        self.statement.evaluate()
+    def evaluate(self, args):
+        self.statement.evaluate(args)

@@ -1,3 +1,5 @@
+import math
+
 # Constants
 TILE_SCALING = 0.5
 SPRITE_PIXEL_SIZE = 128
@@ -22,4 +24,4 @@ def grid_point_to_pixels(point):
     """
     Change a single point from tile to pixels
     """
-    return point * GRID_PIXEL_SIZE + (GRID_PIXEL_SIZE / 2)
+    return point * GRID_PIXEL_SIZE + math.copysign(1.0, point) * (GRID_PIXEL_SIZE / 2)
