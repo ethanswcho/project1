@@ -1,6 +1,5 @@
 from game_library import MyGame
 from objects.mutable_block import MutableBlock
-from objects.player_sprite import PlayerSprite
 import arcade
 import pyglet
 
@@ -11,8 +10,6 @@ class UserGame:
         self.window = window
         
     def user_setup(self):
-        self.player = PlayerSprite(self.window, (2, 3))
-        self.window.physics_engine = arcade.PhysicsEnginePlatformer(self.player, self.window.wall_list, 1)
         self.g1 = MutableBlock(self.window, (11, 1), is_goal=True)
         self.g2 = MutableBlock(self.window, (1, 4), is_goal=True)
         self.b2 = MutableBlock(self.window, (2, 2))

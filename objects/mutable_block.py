@@ -1,6 +1,5 @@
 import arcade
 import game_helpers.pixel_calculator as pcalc
-from objects.sprite_wrapper import SpriteWrapper
 
 # Constants for the flag sprite
 FLAG_SPRITE_SCALING = 0.4
@@ -8,13 +7,15 @@ FLAG_RIGHT_SHIFT = 6
 FLAG_DOWN_SHIFT = 10
 
 
-class MutableBlock(SpriteWrapper):
+class MutableBlock(arcade.Sprite):
 
     def __init__(self, window: arcade.Window, coordinates: tuple, is_goal: bool = False):
+        self.window = window
         self.flag = None
-        super().__init__(window, coordinates, ":resources:images/tiles/grassMid.png", pcalc.TILE_SCALING)
+        super().__init__(":resources:images/tiles/grassMid.png", pcalc.TILE_SCALING)
         window.wall_list.append(self)
         window.block_list.append(self)
+        self.set_block_position(coordinates)
         if is_goal:
             self.set_goal_block()
 
@@ -61,6 +62,7 @@ class MutableBlock(SpriteWrapper):
     
     def set_block_colour(self, dt, colour):
         self.color = colour
+
 
     def set_block_right_movement(self, dt, displacement, speed):
         """

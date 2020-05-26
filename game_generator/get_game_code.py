@@ -7,7 +7,6 @@ def get_game_code(initialize_game: str, formatted_code: str):
     
     return """from game_library import MyGame
 from objects.mutable_block import MutableBlock
-from objects.player_sprite import PlayerSprite
 import arcade
 import pyglet
 

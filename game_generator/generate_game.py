@@ -30,7 +30,7 @@ def generate_game(program: PROGRAM):
         loop_functions.append((func, time))
     
     # Format the list of codes in other_code to fit python syntax
-    formatted_code = program.player.evaluate()
+    formatted_code = """"""
     for c in other_code:
         formatted_code = formatted_code + c + "\n"
 

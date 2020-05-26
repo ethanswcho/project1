@@ -13,4 +13,5 @@ class WAITSTATEMENT(Node):
         self.tokenizer.get_and_check_next("ms")
 
     def evaluate(self):
+        # TODO
         pass
