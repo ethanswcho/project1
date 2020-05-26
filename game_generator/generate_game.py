@@ -21,6 +21,9 @@ def generate_game(program: PROGRAM):
     for ms in program.make_statements:
         other_code.append(ms.evaluate())
 
+    for ms in program.modify_statements:
+        other_code.append(ms.evaluate(0))
+
     loop_code = []
     loop_functions = []
 

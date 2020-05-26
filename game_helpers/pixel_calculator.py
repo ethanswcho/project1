@@ -17,11 +17,18 @@ def grid_coord_to_pixels(coordinates: tuple):
     coordinates : list
         Coordinates (x, y) in tile location
     """
-    return grid_point_to_pixels(coordinates[0]), grid_point_to_pixels(coordinates[1])
+    return grid_point_to_pixels_offset(coordinates[0]), grid_point_to_pixels_offset(coordinates[1])
+
+
+def grid_point_to_pixels_offset(point):
+    """
+    Change a single point from tile to pixels with middle offset
+    """
+    return point * GRID_PIXEL_SIZE + math.copysign(1.0, point) * (GRID_PIXEL_SIZE / 2)
 
 
 def grid_point_to_pixels(point):
     """
-    Change a single point from tile to pixels
-    """
-    return point * GRID_PIXEL_SIZE + math.copysign(1.0, point) * (GRID_PIXEL_SIZE / 2)
+        Change a single point from tile to pixels without middle offset
+        """
+    return point * GRID_PIXEL_SIZE

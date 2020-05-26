@@ -10,7 +10,6 @@ class STATEMENT(Node):
 
     def __init__(self):
         self.statement = None
-        self.type = None
         super().__init__()
 
     def parse(self):
@@ -18,12 +17,10 @@ class STATEMENT(Node):
             s = MAKESTATEMENT()
             s.parse()
             self.statement = s
-            self.type = MAKE
         else:
             s = MODIFYSTATEMENT()
             s.parse()
             self.statement = s.statement
-            self.type = s.type
 
     def evaluate(self, args):
         return self.statement.evaluate(args)

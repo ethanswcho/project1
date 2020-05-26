@@ -10,9 +10,8 @@ class REMOVESTATEMENT(Node):
     def parse(self):
         self.tokenizer.get_and_check_next("destroy")
         self.block_name = self.tokenizer.get_next()
+        if self.block_name == "player":
+            raise Exception("Cannot remove player")
 
-    def evaluate(self, wait=None):
-        if wait is not None:
-            return f"        pyglet.clock.schedule_once(lambda dt: self.{self.block_name}.kill(), {wait})"
-        else:
-            return f"        self.{self.block_name}.kill()"
+    def evaluate(self, wait=0):
+        return f"        pyglet.clock.schedule_once(lambda dt: self.{self.block_name}.kill(), {wait})"

@@ -1,4 +1,3 @@
-from astNodes.COLOUR import COLOUR
 from astNodes.FIELD import FIELD
 from libs.node import Node
 
@@ -21,20 +20,9 @@ class SETSTATEMENT(Node):
         self.block_name = self.tokenizer.get_next()
 
         self.tokenizer.get_and_check_next("to")
-        if field.type == "number":
-            self.value = int(self.tokenizer.get_next())
-        elif field.type == "colour":
-            colour = COLOUR()
-            colour.parse()
-            self.value = colour.colour
-        else:
-            self.value = self.tokenizer.get_next()
+        self.value = int(self.tokenizer.get_next())
 
-    def evaluate(self, wait):
-        if self.field.field == "colour":
-            value = f"arcade.csscolor.{self.value}"
-        else:
-            value = self.value
+    def evaluate(self, wait=0):
         return "".join((f"        pyglet.clock.schedule_once(",
-                        f"self.{self.block_name}.set_block_{self.field.field}, ",
-                        f"{wait}, {value})"))
+                        f"lambda dt: self.{self.block_name}.set_block_{self.field.field}("
+                        f"dt, {self.value}), {wait})"))

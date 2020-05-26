@@ -1,5 +1,8 @@
 from libs.node import Node
 
+# Constants
+MOVE_SPEED = 10
+
 
 class MOVESTATEMENT(Node):
 
@@ -16,7 +19,7 @@ class MOVESTATEMENT(Node):
         self.tokenizer.get_and_check_next("by")
         self.value = int(self.tokenizer.get_next())
 
-    def evaluate(self, wait):
+    def evaluate(self, wait=0):
         return "".join((f"        pyglet.clock.schedule_once(",
-                        f"self.{self.block_name}.set_block_{self.direction}_movement, ",
-                        f"{wait}, {self.value}, 10)"))
+                        f"lambda dt: self.{self.block_name}.set_block_{self.direction}_movement(",
+                        f"dt, {self.value}, {MOVE_SPEED}), {wait})"))
