@@ -2,12 +2,7 @@
 Platformer Game
 """
 import arcade
-import pyglet
 import game_helpers.pixel_calculator as pcalc
-from objects.mutable_block import MutableBlock
-
-# Constants
-CHARACTER_SCALING = 0.6
 
 # Represents dimensions of the arena in tiles
 ARENA_WIDTH = 12
@@ -88,12 +83,6 @@ class MyGame(arcade.Window):
 
         self.game_over = False
 
-        # Set up the player, specifically placing it at these coordinates.
-        self.player_sprite = arcade.Sprite(
-            ":resources:images/animated_characters/zombie/zombie_idle.png", CHARACTER_SCALING)
-        self.player_sprite.position = (0, pcalc.grid_point_to_pixels(1))
-        self.player_list.append(self.player_sprite)
-
         # Create the ground
         # This shows using a loop to place multiple sprites horizontally
         self.create_default_ground()
@@ -101,10 +90,6 @@ class MyGame(arcade.Window):
         # Create the edge boundary
         self.create_edge_boundary()
 
-        # Create the 'physics engine'
-        # First argument is the moving sprite, second argument is list of sprites that moving sprite cannot move through
-        self.physics_engine = arcade.PhysicsEnginePlatformer(
-            self.player_sprite, self.wall_list, GRAVITY)
         self.setup_func()
 
     def set_field(self, field, value):
