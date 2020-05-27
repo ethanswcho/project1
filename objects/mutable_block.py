@@ -89,16 +89,16 @@ class MutableBlock(SpriteWrapper):
         self.boundary_left = None
         self.boundary_bottom = None
         self.boundary_top = None
-        self.boundary_right = (int) (self.position[0] + \
-            pcalc.calculate_tile_to_pixel_displacement(displacement))
+        self.boundary_right = round((self.position[0] + \
+            pcalc.calculate_tile_to_pixel_displacement(displacement)))
         self.change_x = speed * pcalc.TILE_SCALING
 
         if self.flag is not None:
             self.flag.boundary_left = None
             self.flag.boundary_bottom = None
             self.flag.boundary_top = None
-            self.flag.boundary_right = (int) (self.flag.position[0] + \
-                pcalc.calculate_tile_to_pixel_displacement(displacement))
+            self.flag.boundary_right = round((self.flag.position[0] + \
+                pcalc.calculate_tile_to_pixel_displacement(displacement)))
             self.flag.change_x = speed * pcalc.TILE_SCALING
 
     def set_block_left_movement(self, dt, displacement, speed):
