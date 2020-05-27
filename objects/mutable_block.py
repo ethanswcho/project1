@@ -28,6 +28,16 @@ class MutableBlock(SpriteWrapper):
         self.flag = flag
         self.window.goal_list.append(flag)
 
+    def reset_flag(self):
+        if self.flag is not None:
+            self.flag.position = [self.position[0] + FLAG_RIGHT_SHIFT,
+                                  self.position[1] + pcalc.GRID_PIXEL_SIZE - FLAG_DOWN_SHIFT]
+
+    def kill(self):
+        super().kill()
+        if self.flag is not None:
+            self.flag.kill()
+
     def set_block_position(self, coordinates):
         """
         Sets a block's position in tile position
@@ -39,28 +49,29 @@ class MutableBlock(SpriteWrapper):
         """
         Sets a block's xpos in tile position
         """
-        self.position = [pcalc.grid_point_to_pixels(coordinate), self.position[1]]
+        self.position = [pcalc.grid_point_to_pixels_offset(coordinate), self.position[1]]
+        self.reset_flag()
 
     def set_block_ypos(self, dt, coordinate):
         """
         Sets a block's ypos in tile position
         """
-        self.position = [self.position[0], pcalc.grid_point_to_pixels(coordinate)]
+        self.position = [self.position[0], pcalc.grid_point_to_pixels_offset(coordinate)]
+        self.reset_flag()
 
     def change_block_xpos(self, dt, amount):
         """
         Changes a block's xpos in tile position by given amount
         """
         self.position = [self.position[0] + pcalc.grid_point_to_pixels(amount), self.position[1]]
+        self.reset_flag()
     
     def change_block_ypos(self, dt, amount):
         """
         Changes a block's ypos in tile position by given amount
         """
         self.position = [self.position[0], self.position[1] + pcalc.grid_point_to_pixels(amount)]
-    
-    def set_block_colour(self, dt, colour):
-        self.color = colour
+        self.reset_flag()
 
     def set_block_right_movement(self, dt, displacement, speed):
         """

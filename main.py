@@ -12,7 +12,6 @@ def main():
                 "do every", ":", "end loop", "ms", "block", "goal", "put player", "up", "down", "left", "right",
                 "colour", "xpos", "ypos", "width", "height", ",", "at", "with size"]
 
-    #Tokenizer.make_tokenizer("config.txt", literals)
     Tokenizer.make_tokenizer("config.txt", literals)
 
     program = PROGRAM()

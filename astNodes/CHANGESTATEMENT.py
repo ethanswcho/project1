@@ -1,8 +1,6 @@
 from astNodes.FIELD import FIELD
 from libs.node import Node
 
-#CHANGESTATEMENT ::= "change" NUMBERFIELD "of" OBJECT "by" DIGIT
-
 class CHANGESTATEMENT(Node):
 
     def __init__(self):
@@ -15,8 +13,6 @@ class CHANGESTATEMENT(Node):
         self.tokenizer.get_and_check_next("change")
         field = FIELD()
         field.parse()
-        if field.type == "string":
-            raise Exception("Expected a number field, got a string field")
         self.field = field
 
         self.tokenizer.get_and_check_next("of")
@@ -27,5 +23,5 @@ class CHANGESTATEMENT(Node):
 
     def evaluate(self, wait):
         return "".join((f"        pyglet.clock.schedule_once(",
-                        f"self.{self.block_name}.change_block_{self.field.field}, ",
-                        f"{wait}, {self.value})"))
+                        f"lambda dt: self.{self.block_name}.change_block_{self.field.field}(",
+                        f"dt, {self.value}), {wait})"))

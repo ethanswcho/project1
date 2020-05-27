@@ -5,7 +5,7 @@ from astNodes.SETSTATEMENT import SETSTATEMENT
 from libs.node import Node
 
 # Constants
-REMOVE = "remove"
+DESTROY = "destroy"
 SET = "set"
 CHANGE = "change"
 MOVE = "move"
@@ -15,22 +15,17 @@ class MODIFYSTATEMENT(Node):
 
     def __init__(self):
         self.statement = None
-        self.type = None
         super().__init__()
 
     def parse(self):
-        if self.tokenizer.check_token("destroy"):
+        if self.tokenizer.check_token(DESTROY):
             s = REMOVESTATEMENT()
-            self.type = REMOVE
-        elif self.tokenizer.check_token("set"):
+        elif self.tokenizer.check_token(SET):
             s = SETSTATEMENT()
-            self.type = SET
-        elif self.tokenizer.check_token("change"):
+        elif self.tokenizer.check_token(CHANGE):
             s = CHANGESTATEMENT()
-            self.type = CHANGE
-        elif self.tokenizer.check_token("move"):
+        elif self.tokenizer.check_token(MOVE):
             s = MOVESTATEMENT()
-            self.type = MOVE
         else:
             raise Exception("Unexpected next token for Parsing! Expected something matching: destroy|set|change|move")
 
@@ -38,4 +33,4 @@ class MODIFYSTATEMENT(Node):
         self.statement = s
 
     def evaluate(self, args):
-        self.statement.evaluate(args)
+        return self.statement.evaluate(args)

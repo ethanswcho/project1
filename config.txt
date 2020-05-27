@@ -8,8 +8,23 @@ make a block called b4 at 4, 4
 make a block called b5 at 5, 5
 make a block called b6 at 6, 6
 make a block called b7 at 7, 7
+move b6 right by 2
+set xpos of b3 to 8
+change xpos of b3 by -4
+destroy b7
 do every 2000 ms:
-    make a block called b8 at 4, 7
+    move b4 right by 2
+    wait 1000 ms
+    move b4 left by 2
+end loop
+do every 5000 ms:
+    make a goal called b8 at 4, 7
+    wait 1000 ms
+    move b8 up by 2
+    wait 1000 ms
+    set ypos of b8 to 7
+    wait 1000 ms
+    change xpos of b8 by 4
     wait 1000 ms
     destroy b8
 end loop
@@ -25,12 +40,4 @@ do every 6000 ms:
     change ypos of b5 by 2
     wait 1000 ms
     change ypos of b5 by -2
-end loop
-do every 3000 ms:
-    set colour of b4 to ALICE_BLUE
-    wait 1000 ms
-    set colour of b4 to ANTIQUE_WHITE
-    wait 1000 ms
-    set colour of b4 to AQUA
-    wait 1000 ms
 end loop
