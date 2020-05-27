@@ -16,13 +16,22 @@ class LOOPSTATEMENT(Node):
         self.tokenizer.get_and_check_next("ms")
         self.tokenizer.get_and_check_next(":")
 
+        wait_times = 0
+
         while not self.tokenizer.check_token("end loop"):
             if self.tokenizer.check_token("wait"):
                 s = WAITSTATEMENT()
+                s.parse()
+                wait_times += s.ms
             else:
                 s = STATEMENT()
-            s.parse()
+                s.parse()
             self.statements.append(s)
+
+        # Raise an exception of the wait time of statements in the loop exceed the total time of the loop
+        if (wait_times > self.ms):
+            raise Exception(
+                "Wait times in loop exceed the repeat time of loop")
 
         self.tokenizer.get_and_check_next("end loop")
 
