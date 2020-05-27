@@ -89,16 +89,16 @@ class MutableBlock(SpriteWrapper):
         self.boundary_left = None
         self.boundary_bottom = None
         self.boundary_top = None
-        self.boundary_right = self.position[0] + \
-            pcalc.calculate_tile_to_pixel_displacement(displacement)
+        self.boundary_right = (int) (self.position[0] + \
+            pcalc.calculate_tile_to_pixel_displacement(displacement))
         self.change_x = speed * pcalc.TILE_SCALING
 
         if self.flag is not None:
             self.flag.boundary_left = None
             self.flag.boundary_bottom = None
             self.flag.boundary_top = None
-            self.flag.boundary_right = self.flag.position[0] + \
-                pcalc.calculate_tile_to_pixel_displacement(displacement)
+            self.flag.boundary_right = (int) (self.flag.position[0] + \
+                pcalc.calculate_tile_to_pixel_displacement(displacement))
             self.flag.change_x = speed * pcalc.TILE_SCALING
 
     def set_block_left_movement(self, dt, displacement, speed):
@@ -117,16 +117,16 @@ class MutableBlock(SpriteWrapper):
         self.boundary_right = None
         self.boundary_bottom = None
         self.boundary_top = None
-        self.boundary_left = self.position[0] - \
-            pcalc.calculate_tile_to_pixel_displacement(displacement)
+        self.boundary_left = (int) (self.position[0] - \
+            pcalc.calculate_tile_to_pixel_displacement(displacement))
         self.change_x = -speed * pcalc.TILE_SCALING
-
+    
         if self.flag is not None:
             self.flag.boundary_right = None
             self.flag.boundary_bottom = None
             self.flag.boundary_top = None
-            self.flag.boundary_left = self.flag.position[0] - \
-                pcalc.calculate_tile_to_pixel_displacement(displacement)
+            self.flag.boundary_left = (int) (self.flag.position[0] - \
+                pcalc.calculate_tile_to_pixel_displacement(displacement))
             self.flag.change_x = -speed * pcalc.TILE_SCALING
 
     def set_block_up_movement(self, dt, displacement, speed):
@@ -145,16 +145,16 @@ class MutableBlock(SpriteWrapper):
         self.boundary_bottom = None
         self.boundary_left = None
         self.boundary_right = None
-        self.boundary_top = self.position[1] + \
-            pcalc.calculate_tile_to_pixel_displacement(displacement)
+        self.boundary_top = (int) (self.position[1] + \
+            pcalc.calculate_tile_to_pixel_displacement(displacement))
         self.change_y = speed * pcalc.TILE_SCALING
 
         if self.flag is not None:
             self.flag.boundary_bottom = None
             self.flag.boundary_left = None
             self.flag.boundary_right = None
-            self.flag.boundary_top = self.flag.position[1] + \
-                pcalc.calculate_tile_to_pixel_displacement(displacement)
+            self.flag.boundary_top = (int) (self.flag.position[1] + \
+                pcalc.calculate_tile_to_pixel_displacement(displacement))
             self.flag.change_y = speed * pcalc.TILE_SCALING
 
     def set_block_down_movement(self, dt, displacement, speed):
@@ -173,14 +173,14 @@ class MutableBlock(SpriteWrapper):
         self.boundary_top = None
         self.boundary_left = None
         self.boundary_right = None
-        self.boundary_bottom = self.position[1] - \
-            pcalc.calculate_tile_to_pixel_displacement(displacement)
+        self.boundary_bottom = (int) (self.position[1] - \
+            pcalc.calculate_tile_to_pixel_displacement(displacement))
         self.change_y = -speed * pcalc.TILE_SCALING
 
         if self.flag is not None:
             self.flag.boundary_top = None
             self.flag.boundary_left = None
             self.flag.boundary_right = None
-            self.flag.boundary_bottom = self.flag.position[1] - \
-                pcalc.calculate_tile_to_pixel_displacement(displacement)
+            self.flag.boundary_bottom = (int) (self.flag.position[1] - \
+                pcalc.calculate_tile_to_pixel_displacement(displacement))
             self.flag.change_y = -speed * pcalc.TILE_SCALING
