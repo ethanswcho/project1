@@ -4,18 +4,8 @@ Platformer Game
 import arcade
 import game_helpers.pixel_calculator as pcalc
 
-# Represents dimensions of the arena in tiles
-ARENA_WIDTH = 12
-ARENA_HEIGHT = 8
-
-# Represents the default arena fields
-DEFAULT_SCREEN_WIDTH = ARENA_WIDTH * pcalc.GRID_PIXEL_SIZE
-DEFAULT_SCREEN_HEIGHT = ARENA_HEIGHT * pcalc.GRID_PIXEL_SIZE
-DEFAULT_SCREEN_TITLE = "CPSC 410 - Project 1"
-
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 5
-GRAVITY = 1
 PLAYER_JUMP_SPEED = 18
 
 
@@ -33,19 +23,13 @@ class MyGame(arcade.Window):
     def __init__(self, **args):
         self.setup_func = None
         self.destroy_func = None
-        self.screen_width = DEFAULT_SCREEN_WIDTH
-        self.screen_height = DEFAULT_SCREEN_HEIGHT
-        self.title = DEFAULT_SCREEN_TITLE
+        self.screen_width = args["width"]
+        self.screen_width_pixels = self.screen_width * pcalc.GRID_PIXEL_SIZE
+        self.screen_height = args["height"]
+        self.screen_height_pixels = self.screen_height * pcalc.GRID_PIXEL_SIZE
+        self.title = args["title"]
 
-        # Call the parent class and set up the window
-        if "width" in args:
-            self.screen_width = args["width"] * pcalc.GRID_PIXEL_SIZE
-        if "height" in args:
-            self.screen_height = args["height"] * pcalc.GRID_PIXEL_SIZE
-        if "title" in args:
-            self.title = args["title"]
-
-        super().__init__(self.screen_width, self.screen_height, self.title)
+        super().__init__(self.screen_width_pixels, self.screen_height_pixels, self.title)
 
         # These are 'lists' that keep track of our sprites. Each sprite should
         # go into a list.
@@ -131,7 +115,7 @@ class MyGame(arcade.Window):
 
     def create_default_ground(self):
         # Creates the layer of ground for each level
-        for x in range(0, ARENA_WIDTH):
+        for x in range(0, self.screen_width):
             ground = arcade.Sprite(
                 ":resources:images/tiles/grassMid.png", pcalc.TILE_SCALING)
             grid_position = pcalc.grid_coord_to_pixels((x, 0))
@@ -147,13 +131,13 @@ class MyGame(arcade.Window):
 
     def create_edge_boundary(self):
         # Creates the boundary walls
-        for y in range(0, ARENA_HEIGHT):
+        for y in range(0, self.screen_height):
             side_l = arcade.Sprite(
                 ":resources:images/tiles/stoneCenter_rounded.png", pcalc.TILE_SCALING)
             side_r = arcade.Sprite(
                 ":resources:images/tiles/stoneCenter_rounded.png", pcalc.TILE_SCALING)
             grid_position_l = pcalc.grid_coord_to_pixels((-0.0, y))
-            grid_position_r = pcalc.grid_coord_to_pixels((ARENA_WIDTH, y))
+            grid_position_r = pcalc.grid_coord_to_pixels((self.screen_width, y))
             side_l.position = grid_position_l
             side_r.position = grid_position_r
             self.wall_list.append(side_l)
@@ -191,12 +175,12 @@ class MyGame(arcade.Window):
 
     def draw_game_over(self):
         win_message = "NOICE"
-        arcade.draw_text(win_message, self.screen_width/2, self.screen_height/2, arcade.color.WHITE, 54,
-                         align="center", anchor_x="center", anchor_y="bottom")
+        arcade.draw_text(win_message, self.screen_width_pixels/2, self.screen_height_pixels/2,
+                         arcade.color.WHITE, 54, align="center", anchor_x="center", anchor_y="bottom")
 
         restart_message = "Press space to restart"
-        arcade.draw_text(restart_message, self.screen_width/2, self.screen_height/2, arcade.color.WHITE, 16,
-                         align="center", anchor_x="center", anchor_y="top")
+        arcade.draw_text(restart_message, self.screen_width_pixels/2, self.screen_height_pixels/2,
+                         arcade.color.WHITE, 16, align="center", anchor_x="center", anchor_y="top")
 
     def process_key_change(self):
         """
