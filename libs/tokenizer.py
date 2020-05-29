@@ -1,3 +1,12 @@
+"""
+Code Authorship Acknowledgement:
+The tokenizer that we implemented was heavily based off the tokenizer that we have seen in class.
+A few points to consider, however, are:
+1. The tokenizer was written from scratch, since we had to translate into Python from Java.
+2. There were changes to the tokenize method to handle whitespaces in our language.
+3. Our project was quite substantial in that most of the time was spent on parsing, building the game, and implementing
+   the loop functionality, all of which were original work.
+"""
 import re
 
 
